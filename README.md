@@ -11,7 +11,7 @@ NOTA: Se ha adaptado el código para que funcione con versiones superiores del s
 
 Automáticamente se nos abrirá el navegador con la página principal de la aplicación:
 
-![Home de la aplicación foodme ya instalada!](./images/foodme-inicio.png)
+![Home de la aplicación foodme ya instalada!](./docs/images/foodme-inicio.png)
 
 Navegar durante 2-3 minutos por la aplicación para comprobar la funcionalidad existente.
 
