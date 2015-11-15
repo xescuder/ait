@@ -1,6 +1,4 @@
 
-# 1. PRIMEROS PASOS - NUESTRA APLICACIÓN DE EJEMPLO
-
 La aplicacion sobre la que vamos a realizar nuestras pruebas está basada en [Foodme](https://github.com/IgorMinar/foodme).
 
 NOTA: Se ha adaptado el código para que funcione con versiones superiores del stack (angular, express).
@@ -15,7 +13,7 @@ Automáticamente se nos abrirá el navegador con la página principal de la apli
 
 Navegar durante 2-3 minutos por la aplicación para comprobar la funcionalidad existente.
 
-# 2. PRUEBAS UNITARIAS - Un ejemplo basico para entender Jasmine
+# PRUEBAS UNITARIAS
 
 [Información sintaxis Jasmine](http://jasmine.github.io/2.2/introduction.html)
 
@@ -23,7 +21,7 @@ Vamos a revisar un ejemplo básico para conocer la sintaxis del framework de tes
 
 Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 debería dar como resultado 10.
 
-1. Acceder a la carpeta 'projects/foodme/test/unit'
+1. Acceder a la carpeta 'test/unit'
 2. Definimos la prueba antes que el código: 'test/unit/specs/calculator_spec.js'
 (siempre tenemos que nombrar con el sufijo 'spec.js',para que jasmine-node los ejecute por defecto)
   ```javascript
@@ -49,42 +47,43 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
 3. Ejecutar en la consola:
     jasmine-node --autotest
 
-Ver el resultado que falla.
+	Ver el resultado que falla.
 
 4. Realizar el mínimo código para que funcione (foodme/test/unit/calculator.js)
-```javascript
-exports.add = function(a,b) {
-  return 10;
-}
-```
+
+	```javascript
+	exports.add = function(a,b) {
+	  return 10;
+	}
+	```
 
 5. Volver a ejecutar la prueba.
 6. Añadir una nueva condición para que falle
 
-  ```javascript
-    // Pruebas unitarias de una calculadora
-    var calc = require('./calculator.js')
-      describe('Calculadora', function() {
+	  ```javascript
+	    // Pruebas unitarias de una calculadora
+	    var calc = require('./calculator.js')
+	      describe('Calculadora', function() {
 
-        beforeEach(function() {
-        });
+	        beforeEach(function() {
+	        });
 
-        afterEach(function() {        
-        });
+	        afterEach(function() {        
+	        });
 
-        describe('sumar', function() {
-          it('deberia sumar 3 y 7 y devolver 10', function() {
-            var result = calc.add(3,7);
-            expect(result).toBe(10);
-          });
+	        describe('sumar', function() {
+	          it('deberia sumar 3 y 7 y devolver 10', function() {
+	            var result = calc.add(3,7);
+	            expect(result).toBe(10);
+	          });
 
-          it('deberia sumar -2 y 8 y devolver 6', function() {
-            var result = calc.add(-2,8);
-            expect(result).toBe(6);
-          });
-        });
-      });
-  ```
+	          it('deberia sumar -2 y 8 y devolver 6', function() {
+	            var result = calc.add(-2,8);
+	            expect(result).toBe(6);
+	          });
+	        });
+	      });
+	  ```
 7. Hacer la refactorización para que no falle:
 
   ```javascript
@@ -115,7 +114,7 @@ Fichero 'test/unit/calculator_discount.js':
   }
   ```
 
-**TAREA**: Implementar  pruebas unitarias de estas funciones para comprobar si fallan o no en base a algún valor.
+**TAREA**: Implementar pruebas unitarias de estas funciones para comprobar si fallan o no en base a algún valor.
 
 *Considerar diferentes cambios habituales de errores de programadores (sobre valores límite, poner el if antes, ...)*
 
@@ -149,11 +148,11 @@ Fichero 'test/unit/calculator_discount.js':
 
 
 
-# 3. PRUEBAS DE COMPONENTE
+# PRUEBAS DE COMPONENTE
 
 Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating. Comprobar el uso de test doubles para simular los datos del servidor, y evitar asi pruebas dependientes de la infraestructura. 
 
-## 3.1 Configuración de karma para la aplicación
+**Configuración de karma para la aplicación**
 
 El fichero karma de configuración de nuestro proyecto indicará la ubicación de nuestros ficheros de pruebas y otras variables.
 
@@ -203,7 +202,7 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 	      'test/component/**/*.js'
 	    ],
 
-## 3.2 Revisar el contenido del código controlador de la aplicación y el código de prueba de integración para comprobar el filtrado
+**Revisar el contenido del código controlador de la aplicación y el código de prueba de integración para comprobar el filtrado**
 
 Fichero: foodme/app/js/controllers/RestaurantsController.js
 
@@ -234,7 +233,7 @@ Fichero: foodme/app/js/controllers/RestaurantsController.js
     ...
 ```
 
-## 3.3. Crear la prueba
+**Crear la prueba**
 
 Desde el propio Angular existe una librería para mocks, que nos permite actuar como un Test Double y devolver valores predefinidos.
 
@@ -257,18 +256,17 @@ Y tenemos que inyectar ante cualquier llamada a la url de obtención de restaura
 
 *NOTA: Estamos obviando TDD para ir un poco mas rápido, pero no tenemos que olvidar lo que hemos visto anteriormente*
 
-## 3.5. Ejecutar la prueba
+**Ejecutar la prueba**
 
 ```karma start```
 
-![Ejecución del test con exito!](./images/tdd-test-ok.png)
+![Ejecución del test con exito!](./images/tdd-test-ok.png?raw=true)
 
-# 4. PRUEBAS DE ACEPTACIÓN
-Objetivo: Especificar una prueba de aceptación, basada en interfaz de usuario.
+# PRUEBAS DE ACEPTACIÓN
 
 Revisar https://angular.github.io/protractor/#/
 
-## 4.1 Prueba que comprueba el título de la página
+## Prueba que comprueba el título de la página
 
 1. Crear fichero 'projects/foodme/test/acceptance/conf.js':
 
@@ -313,18 +311,18 @@ Revisar https://angular.github.io/protractor/#/
   <body>
   ```
 
-## 4.2 Prueba para comprobar que el precio de la cesta es el del plato escogido
+## Prueba para comprobar que el precio de la cesta es el del plato escogido
 
 + Acceder a la aplicación en el enlace [http://localhost:3000/#/menu/robatayaki
 ](http://localhost:3000/#/menu/robatayaki).
 
-![Visualizacion de la pantalla a probar](./images/foodme-aceptacion-robatayaki.png)
+![Visualizacion de la pantalla a probar](./images/foodme-aceptacion-robatayaki.png?raw=true)
 
 + Para obtener los atributos y valores del DOM de HTML usamos selectores. 
 [Ver tutorial locators](http://angular.github.io/protractor/#/locators)
 
 + Para ayudarnos a saber como seleccionar un elemento concreto de una página podemos usar herramientas plugin de los navegadores: Firefox Developer, Firepath (para XPath)
-![Activacion panel Firepath del ejemplo](./images/foodme-firepath.png)
+![Activacion panel Firepath del ejemplo](./images/foodme-firepath.png?raw=true)
 
 **Realizar la prueba que compruebe si el precio de la cesta es el del plato escogido**
 
@@ -353,7 +351,7 @@ Volver a ejecutar `protractor conf.js`
 
 Abrir el informe generado 'report.html' del directorio '/test/system/results':
 
-![Report de resultados](./images/protractor-report.png)
+![Report de resultados](./images/protractor-report.png?raw=true)
 
 # 5. PRUEBAS DE ACEPTACIÓN CON BDD "REAL"
 Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven Development)
@@ -364,8 +362,6 @@ Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven 
       Given Veo el listado de restaurantes
       When Selecciono un restaurante
       Then Deberia ver un titulo con el nombre del restaurante
-
-NOTA: Hemos escogido esta prueba por su simplicidad. 
 
 1. Configurar protractor 'test/bdd/protractor.conf'
 
