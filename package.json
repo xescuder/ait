@@ -1,0 +1,43 @@
+{
+  "name": "FoodMe",
+  "version": "0.0.1",
+  "description": "Super awesome tutorial.",
+  "keywords": [],
+  "homepage": "http://angularjs.org/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/angular/foodme.git"
+  },
+  "author": "AngularJS Team",
+  "contributors": [
+    "Igor Minár <igor@angularjs.org",
+    "Miško Hevery <misko@angularjs.org",
+    "Vojta Jína <vojta@angularjs.org"
+  ],
+  "main": "scripts/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "csv": ">= 0.2.1",
+    "express": ">= 3.0.0",
+    "morgan": "^1.5.2",
+    "open": ">= 0.0.2",
+    "testacular": "canary"
+  },
+  "engines": {
+    "node": ">= 0.8.4"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "chai-as-promised": "^4.3.0",
+    "cucumber": "^0.4.8",
+    "expect.js": "^0.3.1",
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.5",
+    "protractor-cucumber": "^0.1.4"
+  }
+}

@@ -1,0 +1,316 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'install', '-g', 'istanbul' ]
+2 info using npm@1.4.21
+3 info using node@v0.10.25
+4 verbose cache add [ 'istanbul', null ]
+5 verbose cache add name=undefined spec="istanbul" args=["istanbul",null]
+6 verbose parsed url { protocol: null,
+6 verbose parsed url   slashes: null,
+6 verbose parsed url   auth: null,
+6 verbose parsed url   host: null,
+6 verbose parsed url   port: null,
+6 verbose parsed url   hostname: null,
+6 verbose parsed url   hash: null,
+6 verbose parsed url   search: null,
+6 verbose parsed url   query: null,
+6 verbose parsed url   pathname: 'istanbul',
+6 verbose parsed url   path: 'istanbul',
+6 verbose parsed url   href: 'istanbul' }
+7 silly lockFile 00997c4d-istanbul istanbul
+8 verbose lock istanbul /home/upc/.npm/00997c4d-istanbul.lock
+9 silly lockFile 00997c4d-istanbul istanbul
+10 silly lockFile 00997c4d-istanbul istanbul
+11 verbose addNamed [ 'istanbul', '' ]
+12 verbose addNamed [ null, '*' ]
+13 silly lockFile 3c8612a7-istanbul istanbul@
+14 verbose lock istanbul@ /home/upc/.npm/3c8612a7-istanbul.lock
+15 silly addNameRange { name: 'istanbul', range: '*', hasData: false }
+16 verbose request where is /istanbul
+17 verbose request registry https://registry.npmjs.org/
+18 verbose request id f4fb9a12d6756c0c
+19 verbose url raw /istanbul
+20 verbose url resolving [ 'https://registry.npmjs.org/', './istanbul' ]
+21 verbose url resolved https://registry.npmjs.org/istanbul
+22 verbose request where is https://registry.npmjs.org/istanbul
+23 info trying registry request attempt 1 at 23:10:51
+24 http GET https://registry.npmjs.org/istanbul
+25 http 200 https://registry.npmjs.org/istanbul
+26 silly registry.get cb [ 200,
+26 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+26 silly registry.get     etag: '"3VPZE19IE8CS1SFW3WQK6CLV1"',
+26 silly registry.get     'content-type': 'application/json',
+26 silly registry.get     'cache-control': 'max-age=60',
+26 silly registry.get     'content-length': '269581',
+26 silly registry.get     'accept-ranges': 'bytes',
+26 silly registry.get     date: 'Tue, 10 Nov 2015 22:10:51 GMT',
+26 silly registry.get     via: '1.1 varnish',
+26 silly registry.get     age: '43',
+26 silly registry.get     connection: 'keep-alive',
+26 silly registry.get     'x-served-by': 'cache-fra1233-FRA',
+26 silly registry.get     'x-cache': 'HIT',
+26 silly registry.get     'x-cache-hits': '1',
+26 silly registry.get     'x-timer': 'S1447193451.527423,VS0,VE0',
+26 silly registry.get     vary: 'Accept' } ]
+27 silly addNameRange number 2 { name: 'istanbul', range: '*', hasData: true }
+28 silly addNameRange versions [ 'istanbul',
+28 silly addNameRange   [ '0.1.0',
+28 silly addNameRange     '0.1.1',
+28 silly addNameRange     '0.1.2',
+28 silly addNameRange     '0.1.3',
+28 silly addNameRange     '0.1.4',
+28 silly addNameRange     '0.1.5',
+28 silly addNameRange     '0.1.6',
+28 silly addNameRange     '0.1.7',
+28 silly addNameRange     '0.1.8',
+28 silly addNameRange     '0.1.9',
+28 silly addNameRange     '0.1.10',
+28 silly addNameRange     '0.1.11',
+28 silly addNameRange     '0.1.12',
+28 silly addNameRange     '0.1.13',
+28 silly addNameRange     '0.1.14',
+28 silly addNameRange     '0.1.15',
+28 silly addNameRange     '0.1.16',
+28 silly addNameRange     '0.1.17',
+28 silly addNameRange     '0.1.18',
+28 silly addNameRange     '0.1.19',
+28 silly addNameRange     '0.1.20',
+28 silly addNameRange     '0.1.21',
+28 silly addNameRange     '0.1.22',
+28 silly addNameRange     '0.1.23',
+28 silly addNameRange     '0.1.24',
+28 silly addNameRange     '0.1.25',
+28 silly addNameRange     '0.1.26',
+28 silly addNameRange     '0.1.27',
+28 silly addNameRange     '0.1.28',
+28 silly addNameRange     '0.1.29',
+28 silly addNameRange     '0.1.30',
+28 silly addNameRange     '0.1.31',
+28 silly addNameRange     '0.1.32',
+28 silly addNameRange     '0.1.33',
+28 silly addNameRange     '0.1.34',
+28 silly addNameRange     '0.1.35',
+28 silly addNameRange     '0.1.36',
+28 silly addNameRange     '0.1.37',
+28 silly addNameRange     '0.1.38',
+28 silly addNameRange     '0.1.39',
+28 silly addNameRange     '0.1.40',
+28 silly addNameRange     '0.1.41',
+28 silly addNameRange     '0.1.42',
+28 silly addNameRange     '0.1.43',
+28 silly addNameRange     '0.1.44',
+28 silly addNameRange     '0.1.45',
+28 silly addNameRange     '0.1.46',
+28 silly addNameRange     '0.2.0',
+28 silly addNameRange     '0.2.1',
+28 silly addNameRange     '0.2.2',
+28 silly addNameRange     '0.2.3',
+28 silly addNameRange     '0.2.4',
+28 silly addNameRange     '0.2.5',
+28 silly addNameRange     '0.2.6',
+28 silly addNameRange     '0.2.7',
+28 silly addNameRange     '0.2.8',
+28 silly addNameRange     '0.2.9',
+28 silly addNameRange     '0.2.10',
+28 silly addNameRange     '0.2.11',
+28 silly addNameRange     '0.2.12',
+28 silly addNameRange     '0.2.13',
+28 silly addNameRange     '0.2.14',
+28 silly addNameRange     '0.2.15',
+28 silly addNameRange     '0.2.16',
+28 silly addNameRange     '0.3.0',
+28 silly addNameRange     '0.3.1',
+28 silly addNameRange     '0.3.2',
+28 silly addNameRange     '0.3.3',
+28 silly addNameRange     '0.3.4',
+28 silly addNameRange     '0.3.5',
+28 silly addNameRange     '0.3.6',
+28 silly addNameRange     '0.3.7',
+28 silly addNameRange     '0.3.8',
+28 silly addNameRange     '0.3.9',
+28 silly addNameRange     '0.3.10',
+28 silly addNameRange     '0.3.11',
+28 silly addNameRange     '0.3.13',
+28 silly addNameRange     '0.3.14',
+28 silly addNameRange     '0.3.15',
+28 silly addNameRange     '0.3.16',
+28 silly addNameRange     '0.3.17',
+28 silly addNameRange     '0.3.18',
+28 silly addNameRange     '0.3.19',
+28 silly addNameRange     '0.3.20',
+28 silly addNameRange     '0.3.21',
+28 silly addNameRange     '0.3.22',
+28 silly addNameRange     '0.4.0' ] ]
+29 verbose addNamed [ 'istanbul', '0.4.0' ]
+30 verbose addNamed [ '0.4.0', '0.4.0' ]
+31 silly lockFile a84c1164-istanbul-0-4-0 istanbul@0.4.0
+32 verbose lock istanbul@0.4.0 /home/upc/.npm/a84c1164-istanbul-0-4-0.lock
+33 silly lockFile a0dc10c6--org-istanbul-istanbul-0-4-0-tgz https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+34 verbose lock https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz /home/upc/.npm/a0dc10c6--org-istanbul-istanbul-0-4-0-tgz.lock
+35 verbose addRemoteTarball [ 'https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz',
+35 verbose addRemoteTarball   '058b8437644f86f3b30f18bb355a95975a7fde78' ]
+36 info retry fetch attempt 1 at 23:10:52
+37 verbose fetch to= /tmp/npm-1949-3nvQ6oJA/registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+38 http GET https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+39 http 200 https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+40 silly lockFile a0dc10c6--org-istanbul-istanbul-0-4-0-tgz https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+41 silly lockFile a0dc10c6--org-istanbul-istanbul-0-4-0-tgz https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz
+42 silly lockFile a84c1164-istanbul-0-4-0 istanbul@0.4.0
+43 silly lockFile a84c1164-istanbul-0-4-0 istanbul@0.4.0
+44 silly lockFile 3c8612a7-istanbul istanbul@
+45 silly lockFile 3c8612a7-istanbul istanbul@
+46 silly resolved [ { name: 'istanbul',
+46 silly resolved     version: '0.4.0',
+46 silly resolved     description: 'Yet another JS code coverage tool that computes statement, line, function and branch coverage with module loader hooks to transparently add coverage when running tests. Supports all JS coverage use cases including unit tests, server side functional tests ',
+46 silly resolved     keywords: [ 'coverage', 'code coverage', 'JS code coverage', 'JS coverage' ],
+46 silly resolved     author:
+46 silly resolved      { name: 'Krishnan Anantheswaran',
+46 silly resolved        email: 'kananthmail-github@yahoo.com' },
+46 silly resolved     license: 'BSD-3-Clause',
+46 silly resolved     contributors:
+46 silly resolved      [ [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object],
+46 silly resolved        [Object] ],
+46 silly resolved     scripts:
+46 silly resolved      { pretest: 'jshint index.js lib/ test/ && ./download-escodegen-browser.sh',
+46 silly resolved        test: 'node --harmony test/run.js',
+46 silly resolved        posttest: 'node ./lib/cli.js check-coverage --statements 95 --branches 80',
+46 silly resolved        docs: 'npm install yuidocjs && node node_modules/yuidocjs/lib/cli.js .' },
+46 silly resolved     bin: { istanbul: './lib/cli.js' },
+46 silly resolved     files: [ 'index.js', 'lib/' ],
+46 silly resolved     repository: { type: 'git', url: 'git://github.com/gotwarlost/istanbul.git' },
+46 silly resolved     dependencies:
+46 silly resolved      { abbrev: '1.0.x',
+46 silly resolved        async: '1.x',
+46 silly resolved        escodegen: '1.7.x',
+46 silly resolved        esprima: '2.5.x',
+46 silly resolved        fileset: '0.2.x',
+46 silly resolved        handlebars: '^4.0.1',
+46 silly resolved        'js-yaml': '3.x',
+46 silly resolved        mkdirp: '0.5.x',
+46 silly resolved        nopt: '3.x',
+46 silly resolved        once: '1.x',
+46 silly resolved        resolve: '1.1.x',
+46 silly resolved        'supports-color': '^3.1.0',
+46 silly resolved        which: '^1.1.1',
+46 silly resolved        wordwrap: '^1.0.0' },
+46 silly resolved     devDependencies:
+46 silly resolved      { coveralls: '2.x',
+46 silly resolved        glob: '^5.0.14',
+46 silly resolved        jshint: '^2.8.0',
+46 silly resolved        nodeunit: '0.9.x',
+46 silly resolved        requirejs: '2.x',
+46 silly resolved        rimraf: '^2.4.3' },
+46 silly resolved     gitHead: '4799c5823da130753cbe0f1c52423be6b9fb39dd',
+46 silly resolved     bugs: { url: 'https://github.com/gotwarlost/istanbul/issues' },
+46 silly resolved     homepage: 'https://github.com/gotwarlost/istanbul',
+46 silly resolved     _id: 'istanbul@0.4.0',
+46 silly resolved     _shasum: '058b8437644f86f3b30f18bb355a95975a7fde78',
+46 silly resolved     _from: 'istanbul@',
+46 silly resolved     _npmVersion: '2.5.1',
+46 silly resolved     _nodeVersion: '0.12.0',
+46 silly resolved     _npmUser: { name: 'gotwarlost', email: 'kananthmail-github@yahoo.com' },
+46 silly resolved     maintainers: [ [Object], [Object] ],
+46 silly resolved     dist:
+46 silly resolved      { shasum: '058b8437644f86f3b30f18bb355a95975a7fde78',
+46 silly resolved        tarball: 'http://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz' },
+46 silly resolved     directories: {},
+46 silly resolved     _resolved: 'https://registry.npmjs.org/istanbul/-/istanbul-0.4.0.tgz' } ]
+47 info install istanbul@0.4.0 into /usr/local/lib
+48 info installOne istanbul@0.4.0
+49 verbose lib/node_modules/istanbul unbuild
+50 verbose tar unpack /home/upc/.npm/istanbul/0.4.0/package.tgz
+51 silly lockFile 3440329b--local-lib-node-modules-istanbul tar:///usr/local/lib/node_modules/istanbul
+52 verbose lock tar:///usr/local/lib/node_modules/istanbul /home/upc/.npm/3440329b--local-lib-node-modules-istanbul.lock
+53 silly lockFile fbc912ce-c-npm-istanbul-0-4-0-package-tgz tar:///home/upc/.npm/istanbul/0.4.0/package.tgz
+54 verbose lock tar:///home/upc/.npm/istanbul/0.4.0/package.tgz /home/upc/.npm/fbc912ce-c-npm-istanbul-0-4-0-package-tgz.lock
+55 silly gunzTarPerm modes [ '775', '664' ]
+56 error Error: EACCES, mkdir '/usr/local/lib/node_modules/istanbul'
+56 error  { [Error: EACCES, mkdir '/usr/local/lib/node_modules/istanbul']
+56 error   errno: 3,
+56 error   code: 'EACCES',
+56 error   path: '/usr/local/lib/node_modules/istanbul',
+56 error   fstream_type: 'Directory',
+56 error   fstream_path: '/usr/local/lib/node_modules/istanbul',
+56 error   fstream_class: 'DirWriter',
+56 error   fstream_stack:
+56 error    [ '/usr/lib/nodejs/fstream/lib/dir-writer.js:36:23',
+56 error      '/usr/lib/nodejs/mkdirp/index.js:46:53',
+56 error      'Object.oncomplete (fs.js:107:15)' ] }
+57 error Please try running this command again as root/Administrator.
+58 error System Linux 3.19.0-15-generic
+59 error command "/usr/bin/nodejs" "/usr/bin/npm" "install" "-g" "istanbul"
+60 error cwd /home/upc/projects/foodme-sol/test/unit
+61 error node -v v0.10.25
+62 error npm -v 1.4.21
+63 error path /usr/local/lib/node_modules/istanbul
+64 error fstream_path /usr/local/lib/node_modules/istanbul
+65 error fstream_type Directory
+66 error fstream_class DirWriter
+67 error code EACCES
+68 error errno 3
+69 error stack Error: EACCES, mkdir '/usr/local/lib/node_modules/istanbul'
+70 error fstream_stack /usr/lib/nodejs/fstream/lib/dir-writer.js:36:23
+70 error fstream_stack /usr/lib/nodejs/mkdirp/index.js:46:53
+70 error fstream_stack Object.oncomplete (fs.js:107:15)
+71 verbose exit [ 3, true ]
