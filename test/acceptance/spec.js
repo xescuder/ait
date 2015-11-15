@@ -1,10 +1,10 @@
-/*describe('Recibir bienvenida en el acceso', function() {
+describe('Recibir bienvenida en el acceso', function() {
   it('deberia aparecer el titulo', function() {
     browser.get('http://localhost:3000/#/');
 
     expect(browser.getTitle()).toEqual('Comeme');
   });
-});*/
+});
 
 describe('Cuando añado platos a mi pedido', function() {
 	var priceSelected;

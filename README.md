@@ -52,7 +52,7 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
 
 	Ver el resultado que falla.
 
-4. Realizar el mínimo código para que funcione (foodme/test/unit/calculator.js)
+4. Realizar el mínimo código para que funcione (test/unit/calculator.js)
 
 	```javascript
 	exports.add = function(a,b) {
@@ -122,6 +122,10 @@ Fichero 'test/unit/calculator_discount.js':
 *Considerar diferentes cambios habituales de errores de programadores (sobre valores límite, poner el if antes, ...)*
 
 ---
+
+Fichero: 'calculator_discount_spec.js'
+
+
 	 var calc = require('../calculator_discount.js')
 
 	 describe('Calculo descuento compra', function() {
@@ -153,7 +157,9 @@ Fichero 'test/unit/calculator_discount.js':
 
 # PRUEBAS DE COMPONENTE
 
-Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating. Comprobar el uso de test doubles para simular los datos del servidor, y evitar asi pruebas dependientes de la infraestructura. 
+Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating. 
+
+Para comprobarlo ademas añadiremos un mock que obtenga unos datos predefinidos en lugar de acceder al servidor.
 
 **Configuración de karma para la aplicación**
 
@@ -207,7 +213,7 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 
 **Revisar el contenido del código controlador de la aplicación y el código de prueba de integración para comprobar el filtrado**
 
-Fichero: foodme/app/js/controllers/RestaurantsController.js
+Fichero: app/js/controllers/RestaurantsController.js
 
 ```javascript
  var allRestaurants = Restaurant.query(filterAndSortRestaurants);
@@ -271,7 +277,7 @@ Revisar https://angular.github.io/protractor/#/
 
 ## Prueba que comprueba el título de la página
 
-1. Crear fichero 'projects/foodme/test/acceptance/conf.js':
+1. Crear fichero 'test/acceptance/conf.js':
 
     ```javascript
     // conf.js
@@ -280,7 +286,7 @@ Revisar https://angular.github.io/protractor/#/
       specs: ['spec.js']
     }
     ```
-2. Crear fichero de especificaciones de prueba 'projects/foodme/test/acceptance/spec.js':
+2. Crear fichero de especificaciones de prueba 'test/acceptance/spec.js':
 
     ```javascript
         describe('UPC Foodme test titulo', function() {
@@ -329,8 +335,55 @@ Revisar https://angular.github.io/protractor/#/
 
 **Realizar la prueba que compruebe si el precio de la cesta es el del plato escogido**
 
+---
 
-## 4.3 Generar informe de las pruebas
+Fichero 'test/acceptance/spec.js'
+
+		describe('Cuando añado platos a mi pedido', function() {
+			var priceSelected;
+
+		    beforeEach(function() {
+		      browser.driver.manage().deleteAllCookies();	
+			  browser.get('http://localhost:3000/index.html#/customer');
+		      element(by.model('customerName')).sendKeys('Xavier');
+		      element(by.model('customerAddress')).sendKeys('Mi direccion');
+		      element(by.css('.btn-primary')).click();
+		      element(by.css('a[href*="#/menu/robatayaki"]')).click();    		      
+		    });
+
+		    afterEach(function() {
+		    	browser.manage().logs().get('browser').then(function(browserLog) {
+		      		expect(browserLog.length).toEqual(0);      		
+		      		console.log('log: ' + require('util').inspect(browserLog));
+		    	});
+		  	});
+
+		    describe('Cuando añado un plato a mi pedido vacio', function() {
+				beforeEach(function() {
+					var h3Tag = element(by.tagName('h3'));
+
+			      	expect(h3Tag.getText()).toBe('Robatayaki Hachi');
+			      	
+			      	var linkAddCart = element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[1]/a'));
+			      	element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
+			      		console.log('Precio del plato:' + price);
+			      		priceSelected = price;
+			      		linkAddCart.click();
+			      	});	      	
+				});
+
+				xit('deberia el pedido tener el plato', function() {			
+				});	      
+
+				it('deberia el pedido tener un precio total igual al plato escogido', function() {
+					var total = element(by.binding('cart.total()'));
+					var expectedTotal = 'Total: $' + priceSelected;
+				  	expect(total.getText()).toEqual(expectedTotal);	
+				});
+		    });-
+		});
+
+## Generar informe de las pruebas
 
 Modificar el fichero de configuración conf.js:
 
@@ -356,86 +409,10 @@ Abrir el informe generado 'report.html' del directorio '/test/system/results':
 
 ![Report de resultados](./images/protractor-report.png?raw=true)
 
-# 5. PRUEBAS DE ACEPTACIÓN CON BDD "REAL"
-Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven Development)
 
-## Prueba con BDD
+# PRUEBAS DE ACEPTACIÓN DESCONECTADAS DE LA INTERFAZ DE USUARIO
 
-    Scenario: Visitar restaurante
-      Given Veo el listado de restaurantes
-      When Selecciono un restaurante
-      Then Deberia ver un titulo con el nombre del restaurante
-
-1. Configurar protractor 'test/bdd/protractor.conf'
-
-  ```javascript
-  exports.config = {
-    specs: [
-      './features/**/*.feature'
-    ],
-    capabilities: {
-      'browserName': 'chrome'
-    },
-    baseUrl: 'http://localhost:8081/',
-    framework: 'cucumber'
-  };
-  ```
-2. Crear el escenario 'test/bdd/features/homepage.feature'
-  ```
-    Feature: Añadir platos a mi pedido 
-      Como usuario
-      Quiero poder seleccionar platos de diferentes restaurantes
-      Para poder realizar la compra
-
-      Scenario: Añadir un plato a mi pedido vacio
-        Given Veo el listado de restaurantes
-        When Selecciono un restaurante
-        Then Deberia ver un titulo
-  ```
-3. Crear los pasos de la prueba 'test/bdd/features/homepage-steps.js'
-
-    ```javascript
-    'use strict';
-
-    var expect = require('chai').expect;
-    var HomePage = require('../pages/home_page.js');
-    var steps = function() {
-
-      this.Given(/^Veo el listado de restaurantes$/, function(done) {
-        // callback.pending();
-        browser.get('http://localhost:3000/index.html#/customer');
-        // fill in the customer, so that we navigate to restaurants list
-        element(by.model('customerName')).sendKeys('Xavier');
-        element(by.model('customerAddress')).sendKeys('Mi direccion');
-        element(by.css('.btn-primary')).click();
-      });
-
-      this.When('Selecciono un restaurante', function (done) {
-          callback.pending();
-      });
-
-      this.Then('Deberia ver un titulo', function(callback) {
-          callback.pending();
-      });
-    };
-
-    module.exports = steps;
-    ```
-4.  Ejecutar la prueba
-
-	- En una consola ejecutar
-    ```
-    sudo webdriver-manager start
-    ```
-	- En la consola, ubicados en el directorio '/test/bdd':
-
-		```
-    protractor protractor.js
-    ```
-
-# 5. PRUEBAS DE ACEPTACIÓN DESCONECTADAS DE LA INTERFAZ DE USUARIO
-
-## 5.1 Patrón Window Driver
+## Patrón Window Driver
 
 En el caso de Jasmine el patrón **Window Driver** se denomina **PageObjects**
 
@@ -496,9 +473,10 @@ En el caso de Jasmine el patrón **Window Driver** se denomina **PageObjects**
     module.exports = steps;
     ```
 
-##  5.2 Pruebas de API o servicios
+##  Pruebas de API o servicios
 
-En nuestra aplicación de ejemplo los servicios están definidos con REST y JSON.Usaremos para las pruebas el framework *frisbyjs*.
+En nuestra aplicación de ejemplo los servicios están definidos con REST y JSON.
+Usaremos para las pruebas el framework *frisbyjs*.
 
 Consultar [http://frisbyjs.com](http://frisbyjs.com).
 
@@ -506,12 +484,104 @@ Consultar [http://frisbyjs.com](http://frisbyjs.com).
 
 NOTA: Usar Firebug para revisar la petición y datos recibidos en JSON por REST.
 
-# REFERENCIAS
+---
 
-* [Guía angular para pruebas e2e](https://docs.angularjs.org/guide/e2e-testing)
-* [Guía Karma y Jasmine](http://www.tuesdaydeveloper.com/2013/06/angularjs-testing-with-karma-and-jasmine/)
-* [Guía pruebas end to end](http://engineering.wingify.com/posts/e2e-testing-with-webdriverjs-jasmine/)
+Fichero: 'acceptance-rest/restaurants_spec.js':
+
+		var frisby = require('/usr/local/lib/node_modules/frisby');
+		frisby.create('Obtener Robatayaki Hachi')
+		  .get('http://localhost:3000/api/restaurant/robatayaki')
+		  .expectStatus(200)
+		  .expectHeaderContains('content-type', 'application/json')
+		  .expectJSON('menuItems.0', {
+		    name: function(val) { expect(val).toMatch("California roll"); }, // Comprobacion que el atributo 'name' tiene este valor
+		  })
+		.toss();
 
 
 
+# PRUEBAS DE ACEPTACIÓN CON BDD "REAL"
+Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven Development) con Protractor y CucumberJS
 
+[Ver CucumberJS](https://github.com/cucumber/cucumber-js)
+
+## Prueba con BDD
+
+    Scenario: Visitar restaurante
+      Given Veo el listado de restaurantes
+      When Selecciono un restaurante
+      Then Deberia ver un titulo con el nombre del restaurante
+
+1. Configurar protractor 'test/bdd/protractor.js'
+
+  ```javascript
+  exports.config = {
+    specs: [
+      './features/**/*.feature'
+    ],
+    capabilities: {
+      'browserName': 'chrome'
+    },
+    baseUrl: 'http://localhost:8081/',
+    framework: 'cucumber'
+  };
+  ```
+2. Crear el escenario 'test/bdd/features/homepage.feature'
+  ```
+    Feature: Añadir platos a mi pedido 
+      Como usuario
+      Quiero poder seleccionar platos de diferentes restaurantes
+      Para poder realizar la compra
+
+      Scenario: Añadir un plato a mi pedido vacio
+        Given Veo el listado de restaurantes
+        When Selecciono un restaurante
+        Then Deberia ver un titulo
+  ```
+
+
+3. Crear los pasos de la prueba 'test/bdd/features/homepage-steps.js'
+
+    ```javascript
+    'use strict';
+
+    var expect = require('chai').expect;
+    var HomePage = require('../pages/home_page.js');
+    var steps = function() {
+
+      this.Given(/^Veo el listado de restaurantes$/, function(done) {
+        // callback.pending();
+        browser.get('http://localhost:3000/index.html#/customer');
+        // fill in the customer, so that we navigate to restaurants list
+        element(by.model('customerName')).sendKeys('Xavier');
+        element(by.model('customerAddress')).sendKeys('Mi direccion');
+        element(by.css('.btn-primary')).click();
+      });
+
+      this.When('Selecciono un restaurante', function (done) {
+          callback.pending();
+      });
+
+      this.Then('Deberia ver un titulo', function(callback) {
+          callback.pending();
+      });
+    };
+
+    module.exports = steps;
+    ```
+4.  Ejecutar la prueba
+
+	- En una consola ejecutar
+    ```
+    sudo webdriver-manager start
+    ```
+	- En la consola, ubicados en el directorio '/test/bdd':
+
+		```
+    protractor protractor.js
+    ```
+
+
+# Pruebas exploratorias
+
+Ver presentacion de clase. Usaremos Jira Capture.

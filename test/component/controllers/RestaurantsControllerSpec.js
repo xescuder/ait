@@ -65,7 +65,7 @@
     }));
 
 
-    it('should filter by price', function() {
+    it('deberia filtrar por precio', function() {
       expect(scope.restaurants.length).toBe(5);
 
       scope.$apply(function() {
@@ -82,7 +82,7 @@
     });
 
 
-    it('should filter by rating', function() {
+    it('deberia filtrar por rating', function() {
       expect(scope.restaurants.length).toBe(5);
 
       scope.$apply(function() {
@@ -99,7 +99,7 @@
     });
 
 
-    it('should filter by cuisine', function() {
+    it('deberia filtrar por tipo de cocina', function() {
       expect(scope.restaurants.length).toBe(5);
 
       scope.$apply(function() {
@@ -116,7 +116,7 @@
     });
 
 
-    it('should sort asc/desc', function() {
+    it('deberia ordenar en ascendente/descendente', function() {
       // first click on "name" makes it sort asc
       scope.$apply(function() {
         scope.sortBy('name');
