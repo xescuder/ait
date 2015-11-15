@@ -585,3 +585,5 @@ Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven 
 # Pruebas exploratorias
 
 Ver presentacion de clase. Usaremos Jira Capture.
+
+https://aitm-silk.atlassian.net
