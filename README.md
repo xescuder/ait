@@ -119,7 +119,7 @@ Fichero 'test/unit/calculator_discount.js':
 
 *Considerar diferentes cambios habituales de errores de programadores (sobre valores límite, poner el if antes, ...)*
 
-
+---
 	 var calc = require('../calculator_discount.js')
 
 	 describe('Calculo descuento compra', function() {
