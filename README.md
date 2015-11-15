@@ -3,7 +3,7 @@ La aplicacion sobre la que vamos a realizar nuestras pruebas está basada en [Fo
 
 NOTA: Se ha adaptado el código para que funcione con versiones superiores del stack (angular, express).
 
-**Para visualizar la aplicación ubicarse en el directorio /projects/foodme y ejecutar el arranque del servidor:**
+**Ejecutar la aplicación con:**
 
       ./scripts/web-server.sh
 
@@ -15,7 +15,7 @@ Navegar durante 2-3 minutos por la aplicación para comprobar la funcionalidad e
 
 # PRUEBAS UNITARIAS
 
-[Información sintaxis Jasmine](http://jasmine.github.io/2.2/introduction.html)
+[Información sintaxis Jasmine](http://jasmine.github.io/2.3/introduction.html)
 
 Vamos a revisar un ejemplo básico para conocer la sintaxis del framework de testing y entender el funcionamiento de TDD. 
 
@@ -23,7 +23,9 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
 
 1. Acceder a la carpeta 'test/unit'
 2. Definimos la prueba antes que el código: 'test/unit/specs/calculator_spec.js'
-(siempre tenemos que nombrar con el sufijo 'spec.js',para que jasmine-node los ejecute por defecto)
+
+**Siempre tenemos que nombrar con el sufijo 'spec.js', para que jasmine-node los ejecute**
+
   ```javascript
   // Pruebas unitarias de una calculadora
   var calc = require('../calculator.js')
@@ -45,7 +47,8 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
   });
   ```
 3. Ejecutar en la consola:
-    jasmine-node --autotest
+
+		jasmine-node --autotest
 
 	Ver el resultado que falla.
 
@@ -93,7 +96,7 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
   ```
 8. Volver a ejecutar la prueba
 
-## PRACTICA: Definir un caso unitario para el cálculo de descuentos
+### PRACTICA: Definir un caso unitario para el cálculo de descuentos
 
 Imaginemos que nuestro cliente quiere aplicar descuentos en la compra de platos en las siguientes condiciones:
 
