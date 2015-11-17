@@ -512,62 +512,107 @@ Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven 
       When Selecciono un restaurante
       Then Deberia ver un titulo con el nombre del restaurante
 
-1. Configurar protractor 'test/bdd/protractor.js'
+1. Configurar protractor 'test/bdd/protractor-config.js'
 
   ```javascript
-  exports.config = {
-    specs: [
-      './features/**/*.feature'
-    ],
-    capabilities: {
-      'browserName': 'chrome'
-    },
-    baseUrl: 'http://localhost:8081/',
-    framework: 'cucumber'
-  };
-  ```
-2. Crear el escenario 'test/bdd/features/homepage.feature'
-  ```
-    Feature: Añadir platos a mi pedido 
-      Como usuario
-      Quiero poder seleccionar platos de diferentes restaurantes
-      Para poder realizar la compra
+	 'use strict';
 
-      Scenario: Añadir un plato a mi pedido vacio
-        Given Veo el listado de restaurantes
-        When Selecciono un restaurante
-        Then Deberia ver un titulo
+	var config = {
+
+	    seleniumAddress : 'http://localhost:4444/wd/hub',
+	    framework : 'cucumber',
+	    specs           : [ 'features/restaurant.feature' ],
+	    capabilities    : {
+	        browserName : 'chrome'
+	    },
+	    
+	    cucumberOpts : {
+	        // define your step definitions in this file
+	        require : 'features/steps/*_steps.js',
+	        format  : 'pretty'
+	    }
+
+	};
+
+	exports.config = config;
   ```
+2. Crear libreria ayuda 'test/bdd/lib':
+
+	```javascript
+	var protractor = require('protractor')
+	, webdriver = require('selenium-webdriver');
 
 
-3. Crear los pasos de la prueba 'test/bdd/features/homepage-steps.js'
+	var World = (function(seleniumAddress, options) {
+
+	  if (!seleniumAddress) throw new Error('Please provide a server url');
+
+	  var desiredCapabilities = options.desiredCapabilities || {};
+	  var browserOpt = options.browser || desiredCapabilities.browser || "chrome";
+	  var timeout = options.timeout || 100000;
+
+	  function World() {
+	    var capabilities = webdriver.Capabilities[browserOpt]().merge(desiredCapabilities);
+	    var driver = new webdriver.Builder()
+	    .usingServer(seleniumAddress)
+	    .withCapabilities(capabilities)
+	    .build();
+
+	    driver.manage().timeouts().setScriptTimeout(timeout);
+
+	    var winHandleBefore;
+
+	    driver.getWindowHandle().then(function(result){
+	      winHandleBefore = result;
+	    });
+
+	    this.browser = protractor.wrapDriver(driver);
+	    this.protractor = protractor;
+	    this.by = protractor.By;
+
+	    if (options.assert) this.assert = options.assert;
+	    if (options.baseUrl) this.baseUrl = options.baseUrl;
+	    if (options.properties) this.properties = options.properties;
+
+	    this.quit = function(callback){
+	      driver.quit().then(function(){
+	        callback();
+	      });
+	    }
+	  }
+	  return World;
+	});
+
+	module.exports.world = World;
+	```javascript
+
+
+3. Crear el fichero de feature 'test/bdd/features/restaurant.feature':
+
+
+	Feature: Añadir platos a mi pedido 
+	    Scenario: Añadir un plato a mi pedido vacio
+	      Given Estoy en el restaurante "robatayaki"
+	      When Selecciono el plato "Chicken teriyaki"      
+	      Then Deberia ver mi orden con el plato "Chicken teriyaki"
+
+
+4. Crear los pasos de la prueba 'test/bdd/features/steps/restaurant_steps.js'
 
     ```javascript
-    'use strict';
+    var pc = require('protractor-cucumber');
 
-    var expect = require('chai').expect;
-    var HomePage = require('../pages/home_page.js');
-    var steps = function() {
+	var steps = function() {
+	  var seleniumAddress = 'http://localhost:4444/wd/hub';
+	  var options = { browser : 'chrome', timeout : 100000 };
+	  this.World = pc.world(seleniumAddress, options);
 
-      this.Given(/^Veo el listado de restaurantes$/, function(done) {
-        // callback.pending();
-        browser.get('http://localhost:3000/index.html#/customer');
-        // fill in the customer, so that we navigate to restaurants list
-        element(by.model('customerName')).sendKeys('Xavier');
-        element(by.model('customerAddress')).sendKeys('Mi direccion');
-        element(by.css('.btn-primary')).click();
-      });
+	  this.After(function(callback) {
+	    this.quit(callback);
+	  });
+	};
 
-      this.When('Selecciono un restaurante', function (done) {
-          callback.pending();
-      });
-
-      this.Then('Deberia ver un titulo', function(callback) {
-          callback.pending();
-      });
-    };
-
-    module.exports = steps;
+	module.exports = steps;
     ```
 4.  Ejecutar la prueba
 
@@ -578,7 +623,7 @@ Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven 
 	- En la consola, ubicados en el directorio '/test/bdd':
 
 		```
-    protractor protractor.js
+    cucumber.js
     ```
 
 
