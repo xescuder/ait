@@ -56,7 +56,7 @@
 3. Ir a la ruta 'test/bdd'
 4. Abrir un nuevo terminal y ejecutar:
 
-		protractor protractor.js
+		cucumber.js
 
 ## Pruebas exploratorias
 
