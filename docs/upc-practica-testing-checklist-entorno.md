@@ -38,7 +38,7 @@
 
 		./scripts/web-server.sh
 
-2. Ir a la ruta 'test/rest'
+2. Ir a la ruta 'test/acceptance-rest'
 3. Abrir un nuevo terminal y ejecutar:
 
 		jasmine-node restaurants-spec.js
@@ -58,3 +58,9 @@
 
 		protractor protractor.js
 
+## Pruebas exploratorias
+
+https://aitm-silk.atlassian.net
+Usar usuarios consecutivos:
+
+test1, test2, test3, test4, test5, test6, test7, test8, test9, test10

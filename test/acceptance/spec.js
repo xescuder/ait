@@ -2,7 +2,7 @@ describe('Recibir bienvenida en el acceso', function() {
   it('deberia aparecer el titulo', function() {
     browser.get('http://localhost:3000/#/');
 
-    expect(browser.getTitle()).toEqual('Comeme');
+    expect(browser.getTitle()).toEqual('Foodme');
   });
 });
 
@@ -47,5 +47,5 @@ describe('Cuando añado platos a mi pedido', function() {
 			var expectedTotal = 'Total: $' + priceSelected;
 		  	expect(total.getText()).toEqual(expectedTotal);	
 		});
-    });-
+    });
 });

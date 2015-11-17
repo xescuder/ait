@@ -6,7 +6,7 @@ var HomePage = function() {
 };
 
 
-HomePage.prototype = Object.create({	},{
+HomePage.prototype = Object.create({},{
 	customerName: { get: function () { return element(by.model('customerName')); }},
 	customerAddress: { get: function () { return element(by.model('customerAddress')); }},
 	loginBtn: { get: function () { return element(by.css('.btn-primary')); }},
