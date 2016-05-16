@@ -1,0 +1,5 @@
+projectKey=ait:agile
+serverUrl=http://127.0.0.1:9000/sonar
+dashboardUrl=http://127.0.0.1:9000/sonar/dashboard/index/ait:agile
+ceTaskId=AVS7muKM2muLYZGIfL-_
+ceTaskUrl=http://127.0.0.1:9000/sonar/api/ce/task?id=AVS7muKM2muLYZGIfL-_
