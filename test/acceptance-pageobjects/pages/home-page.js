@@ -16,8 +16,10 @@ HomePage.prototype = Object.create({	},{
 		this.loginBtn.click();
 	}},
 
-	linkRestaurant: {get: function(restaurante) {return element(by.css('a[href*="#/menu/' + restaurante + '"]'))}},
-	goToRestaurant: {value: function(restaurant) {this.linkRestaurant.click()}}
+	linkRestaurant: {value: function(restaurant) {return element(by.css('a[href*="#/menu/' + restaurant + '"]'))}},
+	goToRestaurant: {value: function(restaurant) {
+		this.linkRestaurant(restaurant).click()
+	}}
 });
 
 module.exports = HomePage;

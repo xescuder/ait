@@ -1,7 +1,7 @@
 'use strict';
 
-var HomePage =  require('../pages/home-page.js');
-var RestaurantPage =  require('../pages/restaurant-page.js');
+var HomePage =  require('./pages/home-page.js');
+var RestaurantPage =  require('./pages/restaurant-page.js');
 
 
 var pageHome;
@@ -20,25 +20,20 @@ describe('Cuando añado platos a mi pedido', function() {
 
     describe('Cuando añado platos a mi pedido vacio', function() {
 		beforeEach(function() {
-			pageHome.goToRestaurant('robatayaki');
-			pageRestaurant.linkAddCart();
-			
+			pageRestaurant = new RestaurantPage();
 
-	      	var linkAddCart = element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[1]/a'));
-	      	element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
-	      		console.log('Precio del plato:' + price);
-	      		priceSelected = price;
-	      		linkAddCart.click();
-	      	});	      	
+			pageHome.goToRestaurant('robatayaki');
+			pageRestaurant.add2Cart();			
+			priceSelected = pageRestaurant.dishPrice();						
 		});
 
 		xit('deberia el pedido tener el plato', function() {			
 		});	      
 
-		it('deberia el pedido tener un precio total igual al plato escogido', function() {
-			var total = element(by.binding('cart.total()'));
+		it('deberia el pedido tener un precio total igual al plato escogido', function() {						
 			var expectedTotal = 'Total: $' + priceSelected;
-		  	expect(total.getText()).toEqual(expectedTotal);	
+		  	expect(pageRestaurant.cartTotal().getText()).toEqual(expectedTotal);
 		});
-    });-
+    });
+    
 });
