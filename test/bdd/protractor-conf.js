@@ -9,6 +9,7 @@ var config = {
         browserName : 'chrome'
     },
     
+    chromeDriver: '/usr/local/lib/node_modules/chromedriver'
     cucumberOpts : {
         // define your step definitions in this file
         require : 'features/steps/*_steps.js',
