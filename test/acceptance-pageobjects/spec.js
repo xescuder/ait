@@ -6,11 +6,11 @@ var RestaurantPage =  require('./pages/restaurant-page.js');
 
 var pageHome;
 var pageRestaurant;
-
+var priceSelected;
 
 
 describe('Cuando añado platos a mi pedido', function() {
-	var priceSelected;
+	
 
     beforeEach(function() {
     	pageHome = new HomePage();
@@ -23,8 +23,12 @@ describe('Cuando añado platos a mi pedido', function() {
 			pageRestaurant = new RestaurantPage();
 
 			pageHome.goToRestaurant('robatayaki');
-			pageRestaurant.add2Cart();			
-			priceSelected = pageRestaurant.dishPrice();						
+	      	element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
+	      		priceSelected = price;
+				pageRestaurant.add2Cart();			
+	      	});	     
+
+			
 		});
 
 		xit('deberia el pedido tener el plato', function() {			
@@ -32,7 +36,7 @@ describe('Cuando añado platos a mi pedido', function() {
 
 		it('deberia el pedido tener un precio total igual al plato escogido', function() {						
 			var expectedTotal = 'Total: $' + priceSelected;
-		  	expect(pageRestaurant.cartTotal().getText()).toEqual(expectedTotal);
+		  	expect(pageRestaurant.cartTotal).toEqual(expectedTotal);
 		});
     });
     

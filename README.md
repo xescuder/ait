@@ -15,16 +15,19 @@ Navegar durante 2-3 minutos por la aplicación para comprobar la funcionalidad e
 
 # PRUEBAS UNITARIAS
 
-[Información sintaxis Jasmine](http://jasmine.github.io/2.3/introduction.html)
+[Información sintaxis Jasmine](http://jasmine.github.io)
 
 Vamos a revisar un ejemplo básico para conocer la sintaxis del framework de testing y entender el funcionamiento de TDD. 
 
-Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 debería dar como resultado 10.
+Queremos crear una calculadora que suma y resta: 3 + 7 debería dar como resultado 10.
 
 1. Acceder a la carpeta 'test/unit'
-2. Definimos la prueba antes que el código: 'test/unit/specs/calculator_spec.js'
+2. Ejecutar 
+```jasmine init
 
-**Siempre tenemos que nombrar con el sufijo 'spec.js', para que jasmine-node los ejecute**
+3. Definimos la prueba antes que el código: 'test/unit/spec/calculator_spec.js'
+
+**Siempre tenemos que nombrar con el sufijo 'spec.js', para que jasmine los ejecute**
 
   ```javascript
   // Pruebas unitarias de una calculadora
@@ -48,7 +51,7 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
   ```
 3. Ejecutar en la consola:
 
-		jasmine-node --autotest
+		jasmine
 
 	Ver el resultado que falla.
 
@@ -95,6 +98,9 @@ Queremos crear una calculadora que suma y resta. Según nos explican 3 + 7 deber
   }
   ```
 8. Volver a ejecutar la prueba
+
+
+
 
 ### PRACTICA: Definir un caso unitario para el cálculo de descuentos
 
@@ -159,7 +165,7 @@ Fichero: 'calculator_discount_spec.js'
 
 Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating. 
 
-Para comprobarlo ademas añadiremos un mock que obtenga unos datos predefinidos en lugar de acceder al servidor.
+Para comprobarlo además añadiremos un mock que obtenga unos datos predefinidos en lugar de acceder al servidor.
 
 **Configuración de karma para la aplicación**
 
@@ -484,9 +490,13 @@ Consultar [http://frisbyjs.com](http://frisbyjs.com).
 
 NOTA: Usar Firebug para revisar la petición y datos recibidos en JSON por REST.
 
+> jasmine-node spec/restaurants_spec.js 
+
 ---
 
-Fichero: 'acceptance-rest/restaurants_spec.js':
+
+
+Fichero: 'acceptance-rest/spec/restaurants_spec.js':
 
 		var frisby = require('/usr/local/lib/node_modules/frisby');
 		frisby.create('Obtener Robatayaki Hachi')
@@ -506,6 +516,11 @@ Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven 
 [Ver CucumberJS](https://github.com/cucumber/cucumber-js)
 
 ## Prueba con BDD
+
+> cucumber --init
+
+
+
 
     Scenario: Visitar restaurante
       Given Veo el listado de restaurantes
