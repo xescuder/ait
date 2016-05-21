@@ -17,6 +17,11 @@ Por qué? Para poder visualizar a pantalla completa, poder copiar/pegar entre ho
   ```sudo sh ./VBoxLinuxAdditions.run```
 7. Volver a reiniciar
 
+
+Si no funciona:
+
+> sudo apt-get install virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+
 ## Compartir con el host carpetas
 
 1. En Oracle VirtualBox ir a 'Máquina>Parámetros' y acceder a 'Carpetas Compartidas'.

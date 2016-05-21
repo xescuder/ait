@@ -1,7 +1,6 @@
 
-La aplicacion sobre la que vamos a realizar nuestras pruebas está basada en [Foodme](https://github.com/IgorMinar/foodme).
-
-NOTA: Se ha adaptado el código para que funcione con versiones superiores del stack (angular, express).
+La aplicacion sobre la que vamos a realizar nuestras pruebas se basa en [Foodme](https://github.com/IgorMinar/foodme). 
+Se ha adaptado el código para que funcione con versiones superiores del stack (angular, express).
 
 **Ejecutar la aplicación con:**
 
@@ -11,98 +10,189 @@ Automáticamente se nos abrirá el navegador con la página principal de la apli
 
 ![Home de la aplicación foodme ya instalada!](./images/foodme-inicio.png?raw=true)
 
-Navegar durante 2-3 minutos por la aplicación para comprobar la funcionalidad existente.
 
-# PRUEBAS UNITARIAS
+## Pruebas unitarias
 
-[Información sintaxis Jasmine](http://jasmine.github.io)
 
-Vamos a revisar un ejemplo básico para conocer la sintaxis del framework de testing y entender el funcionamiento de TDD. 
+Objetivo: Ejemplo para calcular una suma y realizar un test, usando la sintaxis del framework Jasmine y TDD.
 
-Queremos crear una calculadora que suma y resta: 3 + 7 debería dar como resultado 10.
+
+Revisar la [sintaxis de Jasmine](http://jasmine.github.io) antes de empezar.
+
 
 1. Acceder a la carpeta 'test/unit'
-2. Ejecutar 
-```jasmine init
+2. Ejecutar ```jasmine init```
 
-3. Definimos la prueba antes que el código: 'test/unit/spec/calculator_spec.js'
+    Se creará una estructura de directorios 'spec/support' con el fichero jasmine.json
 
-**Siempre tenemos que nombrar con el sufijo 'spec.js', para que jasmine los ejecute**
+    ```javascript
+    {
+      "spec_dir": "spec",
+      "spec_files": [
+        "**/*[sS]pec.js"
+      ],
+      "helpers": [
+        "helpers/**/*.js"
+      ],
+      "stopSpecOnExpectationFailure": false,
+      "random": false
+    }
+    ```
+    *Fijarse en donde espera encontrar las especificaciones de prueba y la extensión de las mismas.*
 
-  ```javascript
-  // Pruebas unitarias de una calculadora
-  var calc = require('../calculator.js')
+3. Definimos la prueba antes que el código: 'test/unit/spec/calculator_spec.js':
 
-    describe('Calculadora', function() {
+    ```javascript
+    // Pruebas unitarias de una calculadora
+    var calc = require('../calculator.js')
 
-      beforeEach(function() {
-      });
+      describe('Calculadora', function() {
 
-      afterEach(function() {        
-      });
-
-      describe('sumar', function() {
-        it('deberia sumar 3 y 7 y devolver 10', function() {
-          var result = calc.add(3,7);
-          expect(result).toBe(10);
+        beforeEach(function() {
         });
-      });
-  });
-  ```
-3. Ejecutar en la consola:
 
-		jasmine
+        afterEach(function() {        
+        });
 
-	Ver el resultado que falla.
+        describe('sumar', function() {
+          it('deberia sumar 3 y 7 y devolver 10', function() {
+            var result = calc.add(3,7);
+            expect(result).toBe(10);
+          });
+        });
+    });
+    ```
 
-4. Realizar el mínimo código para que funcione (test/unit/calculator.js)
+    NOTA: **Recordar nombrar siempre las pruebas con el sufijo 'spec.js', para que jasmine los ejecute**
 
-	```javascript
-	exports.add = function(a,b) {
-	  return 10;
-	}
-	```
+4. Ejecutar en la consola: ```jasmine```
 
-5. Volver a ejecutar la prueba.
-6. Añadir una nueva condición para que falle
+    Ver el resultado que falla.
 
-	  ```javascript
-	    // Pruebas unitarias de una calculadora
-	    var calc = require('./calculator.js')
-	      describe('Calculadora', function() {
+5. Realizar el mínimo código para que funcione (test/unit/calculator.js)
 
-	        beforeEach(function() {
-	        });
+  	```javascript
+  	exports.add = function(a,b) {
+  	  return 10;
+  	}
+  	```
 
-	        afterEach(function() {        
-	        });
+6. Volver a ejecutar la prueba
 
-	        describe('sumar', function() {
-	          it('deberia sumar 3 y 7 y devolver 10', function() {
-	            var result = calc.add(3,7);
-	            expect(result).toBe(10);
-	          });
+7. Añadir una nueva condición para que falle
 
-	          it('deberia sumar -2 y 8 y devolver 6', function() {
-	            var result = calc.add(-2,8);
-	            expect(result).toBe(6);
-	          });
-	        });
-	      });
-	  ```
+    ```javascript
+      // Pruebas unitarias de una calculadora
+      var calc = require('./calculator.js')
+        describe('Calculadora', function() {
+
+          beforeEach(function() {
+          });
+
+          afterEach(function() {        
+          });
+
+          describe('sumar', function() {
+            it('deberia sumar 3 y 7 y devolver 10', function() {
+              var result = calc.add(3,7);
+              expect(result).toBe(10);
+            });
+
+            it('deberia sumar -2 y 8 y devolver 6', function() {
+              var result = calc.add(-2,8);
+              expect(result).toBe(6);
+            });
+          });
+        });
+    ```
+
 7. Hacer la refactorización para que no falle:
 
-  ```javascript
-  exports.add = function(a,b) {
-    return a+b;
-  }
-  ```
+    ```javascript
+    exports.add = function(a,b) {
+      return parseInt(a)+parseInt(b);
+    }
+    ```
+
 8. Volver a ejecutar la prueba
 
 
 
+## Pruebas unitarias con Cucumber
 
-### PRACTICA: Definir un caso unitario para el cálculo de descuentos
+Ver enlace [documentación Cucumber.js](https://github.com/cucumber/cucumber-js)
+
+1. Definimos el feature (**sumar.feature**)
+
+    ```
+    Feature: Sumar números
+      As a usuario de la calculadora
+      Yo quiero poder añadir 2 números
+
+      
+      Scenario: Añadir 2 números
+        Given la calculadora está inicializada
+        When Yo sumo 3 y 7
+        Then el resultado debería ser 10
+    ```
+  
+2. Definir el objecto World que permite llamar al código de la aplicación (**support/world.js**)
+
+    ```javascript
+    (function() {
+      var World;
+
+      module.exports.World = World = function(callback) {
+        var calc = require('../../models/calculator.js');
+        
+        this.add = function(arg1, arg2) {
+          return calc.add(arg1, arg2);
+        };
+        
+      };
+
+    }).call(this);
+    ```
+
+3. Dejamos en la carpeta 'models' el fichero 'calculator.js' (igual que habíamos hecho con la prueba con Jasmine)
+4. Definimos la especificación de pruebas que cumple el feature definido (features/step_definitions/myStepDefinitions.js):
+    
+    ```javascript
+    (function() {
+      module.exports = function() {
+        var result;
+
+        this.World = require('../support/world').World;
+        this.Given(/^la calculadora está inicializada$/, function(callback) {
+          //this.clearCalculator();
+          callback();
+        });
+
+        
+        this.When(/^Yo sumo (\d+) y (\d+)$/, function(arg1, arg2, callback) {      
+          result = this.add(arg1, arg2);
+          //callback(null, 'pending');
+          callback();
+        });
+
+        this.Then(/^el resultado debería ser (\d+)$/, function(arg1, callback) {
+          console.log('Result:' + result);
+          if (result === Number(arg1)) {
+            callback();
+          } else {
+            callback(new Error('La suma se esperaba que fuera ' + arg1 + ' y es:' + result));
+          }
+        });
+      };
+
+    }).call(this);
+    ```
+5. Ejecutar el comando ```cucumber.js``` desde la carpeta raíz del directorio de pruebas con Cucumber.
+6. Fijarse en la salida
+
+    ![Resultado de la ejecución](./images/cucumber.png)
+
+### Ejemplo adicional: Definir un caso unitario para el cálculo de descuentos (Jasmine)
 
 Imaginemos que nuestro cliente quiere aplicar descuentos en la compra de platos en las siguientes condiciones:
 
@@ -131,7 +221,7 @@ Fichero 'test/unit/calculator_discount.js':
 
 Fichero: 'calculator_discount_spec.js'
 
-
+    ```javascript
 	 var calc = require('../calculator_discount.js')
 
 	 describe('Calculo descuento compra', function() {
@@ -157,22 +247,29 @@ Fichero: 'calculator_discount_spec.js'
 	      expect(calc.getDiscountByPrice(200)).toBe(0.1);
 	    });
 	  });
-	});
+	 });
+   ```
 
 
 
-# PRUEBAS DE COMPONENTE
 
-Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating. 
 
-Para comprobarlo además añadiremos un mock que obtenga unos datos predefinidos en lugar de acceder al servidor.
+## Pruebas de componente
 
-**Configuración de karma para la aplicación**
+Objetivo: Especificar una prueba de integración para el controlador de Restaurantes y comprobar que filtra correctamente la lista de restaurantes en base al filtro de rating, usando mock objects. Además incorporaremos el uso de un TestRunner como Karma para mejorar el proceso de pruebas.
+
+[Referencia a Karma](https://karma-runnner.github.io/0.13/index.html)
+[Referencia a angular-mocks](https://docs.angularjs.org/guide/unit-testing)
+
+
+### Configuración de karma para la aplicación
 
 El fichero karma de configuración de nuestro proyecto indicará la ubicación de nuestros ficheros de pruebas y otras variables.
 
+    
     cd test/component
     karma init
+    
 
 Aparecerán varias preguntas. Dar las siguientes respuestas:
 
@@ -206,7 +303,8 @@ Aparecerán varias preguntas. Dar las siguientes respuestas:
 
 
 Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros de prueba y de aplicación:
-
+    
+    ```javascript
 	   files: [
 	      'app/lib/angular/angular.js',
 	      'app/lib/angular/angular-*.js',
@@ -216,72 +314,205 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 	      'app/js/**/*.js',
 	      'test/component/**/*.js'
 	    ],
-
-**Revisar el contenido del código controlador de la aplicación y el código de prueba de integración para comprobar el filtrado**
-
-Fichero: app/js/controllers/RestaurantsController.js
-
-```javascript
- var allRestaurants = Restaurant.query(filterAndSortRestaurants);
-  
-  $scope.$watch('filter', filterAndSortRestaurants, true);
-
-  function filterAndSortRestaurants() {
-    $scope.restaurants = [];
-
-    // filter
-    angular.forEach(allRestaurants, function(item, key) {
-      if (filter.price && filter.price !== item.price) {
-        return;
-      }
-
-      if (filter.rating && filter.rating !== item.rating) {
-        return;
-      }
-
-      if (filter.cuisine.length && filter.cuisine.indexOf(item.cuisine) === -1) {
-        return;
-      }
-
-      $scope.restaurants.push(item);
-    });
-    ...
-```
-
-**Crear la prueba**
-
-Desde el propio Angular existe una librería para mocks, que nos permite actuar como un Test Double y devolver valores predefinidos.
-
-Usaremos la función:
-
-    $httpBackend.whenGET(...)
-
-Y tenemos que inyectar ante cualquier llamada a la url de obtención de restaurantes esta función.
+    ```
 
 
-  beforeEach(inject(function($controller, $httpBackend, $rootScope) {
-      scope = $rootScope;
-
-      $httpBackend.whenGET('/api/restaurant').respond(RESPONSE);
-      $controller('RestaurantsController', {$scope: scope});
-
-      $httpBackend.flush();
-    }));
+### Definición y ejecución de la prueba
 
 
-*NOTA: Estamos obviando TDD para ir un poco mas rápido, pero no tenemos que olvidar lo que hemos visto anteriormente*
+1. Revisar el contenido del código controlador de la aplicación y el código de prueba de integración para comprobar como se realiza el filtrado en la búsqueda
 
-**Ejecutar la prueba**
+    Fichero: app/js/controllers/RestaurantsController.js
 
-```karma start```
+    ```javascript
+     var allRestaurants = Restaurant.query(filterAndSortRestaurants);
+      
+      $scope.$watch('filter', filterAndSortRestaurants, true);
 
-![Ejecución del test con exito!](./images/tdd-test-ok.png?raw=true)
+      function filterAndSortRestaurants() {
+        $scope.restaurants = [];
 
-# PRUEBAS DE ACEPTACIÓN
+        // filter
+        angular.forEach(allRestaurants, function(item, key) {
+          if (filter.price && filter.price !== item.price) {
+            return;
+          }
 
-Revisar https://angular.github.io/protractor/#/
+          if (filter.rating && filter.rating !== item.rating) {
+            return;
+          }
 
-## Prueba que comprueba el título de la página
+          if (filter.cuisine.length && filter.cuisine.indexOf(item.cuisine) === -1) {
+            return;
+          }
+
+          $scope.restaurants.push(item);
+        });
+        ...
+    ```
+
+2. Definir la prueba (/component/controllers/RestaurantControllerSpec.js):
+
+        ```javascript
+         'use strict';
+
+          var RESPONSE = [
+            {
+              "price": 3,
+              "id": "esthers",
+              "cuisine": "german",
+              "rating": 3,
+              "name": "Esther's German Saloon"
+            },
+            {
+              "price": 4,
+              "id": "robatayaki",
+              "cuisine": "japanese",
+              "rating": 5,
+              "name": "Robatayaki Hachi"
+            },
+            {
+              "price": 2,
+              "id": "tofuparadise",
+              "cuisine": "vegetarian",
+              "rating": 1,
+              "name": "BBQ Tofu Paradise"
+            },
+            {
+              "price": 5,
+              "id": "bateaurouge",
+              "cuisine": "french",
+              "rating": 4,
+              "name": "Le Bateau Rouge"
+            },
+            {
+              "price": 3,
+              "id": "khartoum",
+              "cuisine": "african",
+              "rating": 2,
+              "name": "Khartoum Khartoum"
+            }
+          ];
+
+          describe('RestaurantsController', function() {
+            var scope;
+
+            var idsFrom = function(restaurants) {
+              return restaurants.map(function(restaurant) {
+                return restaurant.id;
+              });
+            };
+
+            beforeEach(function() {
+              module('foodMeApp'); // <= inicializar el módulo a probar
+            });
+
+            beforeEach(inject(function($controller, $httpBackend, $rootScope) {
+              scope = $rootScope;
+
+              $httpBackend.whenGET('/api/restaurant').respond(RESPONSE); // <= Aquí introducimos el mock
+              $controller('RestaurantsController', {$scope: scope});
+
+              $httpBackend.flush();
+            }));
+
+
+            it('deberia filtrar por rating', function() {
+              expect(scope.restaurants.length).toBe(5);
+
+              scope.$apply(function() {
+                scope.filter.rating = 1;
+              });
+
+              expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
+
+              scope.$apply(function() {
+                scope.filter.rating = null;
+              });
+
+              expect(scope.restaurants.length).toBe(5);
+            });
+
+
+            expect(idsFrom(scope.restaurants)).toEqual([
+              'tofuparadise', 'khartoum', 'esthers', 'bateaurouge', 'robatayaki'
+            ]);
+
+            // second click on "rating" makes it sort desc
+            scope.$apply(function() {
+              scope.sortBy('rating');
+            });
+
+            expect(idsFrom(scope.restaurants)).toEqual([
+              'robatayaki', 'bateaurouge', 'esthers', 'khartoum', 'tofuparadise'
+            ]);
+            });
+          });
+          ```
+
+      El array 'RESPONSE' es el array dummy que devolveremos siempre que se reciba la llamada para obtener un listado de restaurantes. Este array 'predefinido' permite que las pruebas sean repetibles y deterministas.
+
+      La función: ```$httpBackend.whenGET(...)``` es la que permite inyectar un test double, de forma que siempre que desde la aplicación, durante la prueba, se obtengan un listado de restaurantes se devolverá la lista predefinida, y no la contenida en la base de datos.
+
+    
+3. Ejecutar la prueba mediante ```karma start```
+
+    ![Ejecución del test con exito!](./images/tdd-test-ok.png?raw=true)
+
+4. Cambiar en el código de la prueba la línea:
+
+    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
+    a
+    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);
+
+    Fijarse como en la consola automáticamente se muestra que la prueba falla.
+
+    ![Reejecución del test con fallo!](./images/karma.png?raw=true)
+
+
+##  Pruebas de API o servicios
+
+Objetivo: Realizar una prueba basada en servicios (REST API).
+
+En nuestra aplicación de ejemplo los servicios están definidos con REST y JSON. Usaremos para las pruebas el framework *frisbyjs*.
+Consultar [http://frisbyjs.com](http://frisbyjs.com).
+
+¿Cómo realizaremos la prueba que verifica que en el restaurante 'Robatayaki Hachi' su primer plato es 'California roll'?
+
+1. Abrir en el menú del navegador Chrome la opción 'More tools>Developer Tools' (o en Firefox con Firebug por ejemplo)
+2. Navegar en la aplicación hasta pulsar el enlace al restaurante 'Robatayaki Hachi'
+3. En la pestanya Network, pulsar en el menú izquierdo el nombre 'robatayaki' que corresponde a una llamada realizada desde la presentación al servidor
+
+  ![Visualización del formato json obtenido](./images/chrome-restaurant-json.png?raw=true)
+
+  Si pasamos por encima del nombre 'robatayaki' también podemos ver la llamada realizada 'http://localhost:3000/api/restaurant/robatayaki'
+
+4. Crear la prueaba (spec/restaurants_spec.js):
+
+    ```javascript
+    var frisby = require('/usr/local/lib/node_modules/frisby');
+    frisby.create('Obtener Robatayaki Hachi')
+      .get('http://localhost:3000/api/restaurant/robatayaki')
+      .expectStatus(200)
+      .expectHeaderContains('content-type', 'application/json')
+      .expectJSON('menuItems.0', {
+        name: function(val) { expect(val).toMatch("California roll"); }, // Comprobacion que el atributo 'name' tiene este valor
+      })
+    .toss();
+    ```
+5. Ejecutar la prueba mediante ```jasmine-node spec/restaurants_spec.js```
+
+---
+
+
+## Pruebas de aceptación (por interfaz de usuario)
+
+
+Objetivo: Realizar pruebas de aceptación en base a la presentación o la interacción real del usuario con la aplicación. Usaremos Selenium y Protractor
+
+[Ver protractor](https://angular.github.io/protractor/#/)
+
+### Toma de contacto: Verificar el título de la página
 
 1. Crear fichero 'test/acceptance/conf.js':
 
@@ -292,6 +523,7 @@ Revisar https://angular.github.io/protractor/#/
       specs: ['spec.js']
     }
     ```
+
 2. Crear fichero de especificaciones de prueba 'test/acceptance/spec.js':
 
     ```javascript
@@ -307,11 +539,11 @@ Revisar https://angular.github.io/protractor/#/
 
     En una consola ejecutar:
 
-        sudo webdriver-manager start
+        ```sudo webdriver-manager start```
 
     Abrir otra consola y ejecutar:
 
-        protractor conf.js
+        ```protractor conf.js```
 
     NOTA: Previamente hay que arrancar la aplicación.
 
@@ -326,25 +558,19 @@ Revisar https://angular.github.io/protractor/#/
   <body>
   ```
 
-## Prueba para comprobar que el precio de la cesta es el del plato escogido
+### Prueba para comprobar que el precio de la cesta es el del plato escogido
 
-+ Acceder a la aplicación en el enlace [http://localhost:3000/#/menu/robatayaki
-](http://localhost:3000/#/menu/robatayaki).
-
-![Visualizacion de la pantalla a probar](./images/foodme-aceptacion-robatayaki.png?raw=true)
-
-+ Para obtener los atributos y valores del DOM de HTML usamos selectores. 
 [Ver tutorial locators](http://angular.github.io/protractor/#/locators)
 
-+ Para ayudarnos a saber como seleccionar un elemento concreto de una página podemos usar herramientas plugin de los navegadores: Firefox Developer, Firepath (para XPath)
-![Activacion panel Firepath del ejemplo](./images/foodme-firepath.png?raw=true)
+1. Acceder a la aplicación en el enlace [http://localhost:3000/#/menu/robatayaki
+](http://localhost:3000/#/menu/robatayaki)
 
-**Realizar la prueba que compruebe si el precio de la cesta es el del plato escogido**
+2. Para consultar locators complejos usaremos el plugin Firepath. Seleccionar el elemento en el navegador y con botón derecho del ratón escoger 'Inspect in Firepath'. Veremos en la ventana inferior un campo 'XPath' con información de la referencia
 
----
+  ![Activacion panel Firepath del ejemplo](./images/foodme-firepath.png?raw=true)
+3. La prueba sería (test/acceptance/spec.js):
 
-Fichero 'test/acceptance/spec.js'
-
+    ```javascript
 		describe('Cuando añado platos a mi pedido', function() {
 			var priceSelected;
 
@@ -386,264 +612,119 @@ Fichero 'test/acceptance/spec.js'
 					var expectedTotal = 'Total: $' + priceSelected;
 				  	expect(total.getText()).toEqual(expectedTotal);	
 				});
-		    });-
+		    });-        
 		});
-
-## Generar informe de las pruebas
-
-Modificar el fichero de configuración conf.js:
-
-```javascript
-var HtmlReporter = require('protractor-html-screenshot-reporter');
-// conf.js
-exports.config = {
-  seleniumAddress: 'http://localhost:4444/wd/hub',
-  specs: ['spec.js'],
-
-  onPrepare: function() {
-      // Add a screenshot reporter and store screenshots to `/tmp/screnshots`: 
-      jasmine.getEnv().addReporter(new HtmlReporter({
-         baseDirectory: './results'
-      }));
-   }
-}
-```
-
-Volver a ejecutar `protractor conf.js`
-
-Abrir el informe generado 'report.html' del directorio '/test/system/results':
-
-![Report de resultados](./images/protractor-report.png?raw=true)
-
-
-# PRUEBAS DE ACEPTACIÓN DESCONECTADAS DE LA INTERFAZ DE USUARIO
-
-## Patrón Window Driver
-
-En el caso de Jasmine el patrón **Window Driver** se denomina **PageObjects**
-
-¿Como definiríamos el acceso a la página principal (HomePage)?
-
-1. Definir en el fichero 'home_page.js' la página:
-
-    ```javascript
-    var HomePage = (function () {
-        function HomePage() {
-            this.url = 'http://localhost:3000/index.html#/customer';
-            this.customerNameInput = element(by.model('customerName'));
-            this.customerAddressInput = element(by.model('customerAddress'));
-            this.submitBtn = element(by.css('.btn-primary'));
-        }
-
-        HomePage.prototype.visit = function () {
-            browser.get(this.url);
-        };
-
-        HomePage.prototype.login = function (name, address) {
-            this.customerNameInput.sendKeys(name);
-            this.customerAddressInput.sendKeys(address);
-            this.submitBtn.click();
-        };
-
-        return HomePage;
-    })();
-
-    module.exports = HomePage;
     ```
+4. Ejecutar la prueba: ```protractor conf.js```
 
-2. Actualizar la prueba de la sección anterior usando el código:
 
-    ```javascript
-    'use strict';
+# Pruebas de aceptación de interfaz con el patrón Window Driver
 
-    var expect = require('chai').expect;
-    var HomePage = require('../pages/home_page.js');
 
-    var steps = function() {
-      var page = new HomePage();
+1. Estructurar cada página en un fichero u objeto
 
-      this.Given(/^Veo el listado de restaurantes$/, function(callback) {    
-        page.visit();
-        page.login('Xavier','Mi direccion');    
+      Fichero 'pages/home_page.js':
+
+      ```javascript
+      'use strict';
+
+      var HomePage = function() {
+        browser.driver.manage().deleteAllCookies(); 
+        browser.get('http://localhost:3000/index.html#/customer');
+      };
+
+
+      HomePage.prototype = Object.create({  },{
+        customerName: { get: function () { return element(by.model('customerName')); }},
+        customerAddress: { get: function () { return element(by.model('customerAddress')); }},
+        loginBtn: { get: function () { return element(by.css('.btn-primary')); }},
+        doLogin: {value: function(name, address) {
+          this.customerName.sendKeys(name);
+          this.customerAddress.sendKeys(address);
+          this.loginBtn.click();
+        }},
+
+        linkRestaurant: {value: function(restaurant) {return element(by.css('a[href*="#/menu/' + restaurant + '"]'))}},
+        goToRestaurant: {value: function(restaurant) {
+          this.linkRestaurant(restaurant).click()
+        }}
       });
 
-      this.When('Selecciono un restaurante', function (done) {      
-          callback.pending();
+      module.exports = HomePage;
+      ```
+
+
+      Fichero 'pages/restaurant_page.js':
+
+      ```javascript
+      'use strict';
+
+      var RestaurantPage = function() {
+      };
+
+
+      RestaurantPage.prototype = Object.create({  },{
+        
+        linkAdd2Cart: {get: function() {return element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[1]/a'));}},        
+        add2Cart: {value: function() {this.linkAdd2Cart.click()}},
+        dishPrice: {get: function() {return element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]'));}},
+        cartTotal: {get: function() {return element(by.binding('cart.total()')).getText();}}
       });
 
-      this.Then('Deberia ver un titulo', function(done) {
-          callback.pending();
+      module.exports = RestaurantPage;
+      ```
+
+2. Actualizar la prueba de la sección anterior usando las definiciones de página anteriores:
+
+
+      ```javascript    
+      'use strict';
+
+      var HomePage =  require('./pages/home-page.js');
+      var RestaurantPage =  require('./pages/restaurant-page.js');
+
+
+      var pageHome;
+      var pageRestaurant;
+      var priceSelected;
+
+
+      describe('Cuando añado platos a mi pedido', function() {
+        
+
+          beforeEach(function() {
+            pageHome = new HomePage();
+            pageHome.doLogin('Xavier Escudero', 'Mi direccion');
+          });
+
+
+          describe('Cuando añado platos a mi pedido vacio', function() {
+          beforeEach(function() {
+            pageRestaurant = new RestaurantPage();
+
+            pageHome.goToRestaurant('robatayaki');
+                element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
+                  priceSelected = price;
+              pageRestaurant.add2Cart();      
+                });      
+
+            
+          });
+
+          xit('deberia el pedido tener el plato', function() {      
+          });       
+
+          it('deberia el pedido tener un precio total igual al plato escogido', function() {            
+            var expectedTotal = 'Total: $' + priceSelected;
+              expect(pageRestaurant.cartTotal).toEqual(expectedTotal);
+          });
+          });
+          
       });
-    };
-
-    module.exports = steps;
-    ```
-
-##  Pruebas de API o servicios
-
-En nuestra aplicación de ejemplo los servicios están definidos con REST y JSON.
-Usaremos para las pruebas el framework *frisbyjs*.
-
-Consultar [http://frisbyjs.com](http://frisbyjs.com).
-
-¿Cómo realizaremos la prueba de consultar el restaurante 'robatayaki' y su primer plato?
-
-NOTA: Usar Firebug para revisar la petición y datos recibidos en JSON por REST.
-
-> jasmine-node spec/restaurants_spec.js 
-
----
+      ```    
 
 
-
-Fichero: 'acceptance-rest/spec/restaurants_spec.js':
-
-		var frisby = require('/usr/local/lib/node_modules/frisby');
-		frisby.create('Obtener Robatayaki Hachi')
-		  .get('http://localhost:3000/api/restaurant/robatayaki')
-		  .expectStatus(200)
-		  .expectHeaderContains('content-type', 'application/json')
-		  .expectJSON('menuItems.0', {
-		    name: function(val) { expect(val).toMatch("California roll"); }, // Comprobacion que el atributo 'name' tiene este valor
-		  })
-		.toss();
-
-
-
-# PRUEBAS DE ACEPTACIÓN CON BDD "REAL"
-Objetivo: Especificar una prueba de aceptación basada en BDD (Behaviour Driven Development) con Protractor y CucumberJS
-
-[Ver CucumberJS](https://github.com/cucumber/cucumber-js)
-
-## Prueba con BDD
-
-> cucumber --init
-
-
-
-
-    Scenario: Visitar restaurante
-      Given Veo el listado de restaurantes
-      When Selecciono un restaurante
-      Then Deberia ver un titulo con el nombre del restaurante
-
-1. Configurar protractor 'test/bdd/protractor-config.js'
-
-  ```javascript
-	 'use strict';
-
-	var config = {
-
-	    seleniumAddress : 'http://localhost:4444/wd/hub',
-	    framework : 'cucumber',
-	    specs           : [ 'features/restaurant.feature' ],
-	    capabilities    : {
-	        browserName : 'chrome'
-	    },
-	    
-	    cucumberOpts : {
-	        // define your step definitions in this file
-	        require : 'features/steps/*_steps.js',
-	        format  : 'pretty'
-	    }
-
-	};
-
-	exports.config = config;
-  ```
-2. Crear libreria ayuda 'test/bdd/lib':
-
-	```javascript
-	var protractor = require('protractor')
-	, webdriver = require('selenium-webdriver');
-
-
-	var World = (function(seleniumAddress, options) {
-
-	  if (!seleniumAddress) throw new Error('Please provide a server url');
-
-	  var desiredCapabilities = options.desiredCapabilities || {};
-	  var browserOpt = options.browser || desiredCapabilities.browser || "chrome";
-	  var timeout = options.timeout || 100000;
-
-	  function World() {
-	    var capabilities = webdriver.Capabilities[browserOpt]().merge(desiredCapabilities);
-	    var driver = new webdriver.Builder()
-	    .usingServer(seleniumAddress)
-	    .withCapabilities(capabilities)
-	    .build();
-
-	    driver.manage().timeouts().setScriptTimeout(timeout);
-
-	    var winHandleBefore;
-
-	    driver.getWindowHandle().then(function(result){
-	      winHandleBefore = result;
-	    });
-
-	    this.browser = protractor.wrapDriver(driver);
-	    this.protractor = protractor;
-	    this.by = protractor.By;
-
-	    if (options.assert) this.assert = options.assert;
-	    if (options.baseUrl) this.baseUrl = options.baseUrl;
-	    if (options.properties) this.properties = options.properties;
-
-	    this.quit = function(callback){
-	      driver.quit().then(function(){
-	        callback();
-	      });
-	    }
-	  }
-	  return World;
-	});
-
-	module.exports.world = World;
-	```javascript
-
-
-3. Crear el fichero de feature 'test/bdd/features/restaurant.feature':
-
-
-	Feature: Añadir platos a mi pedido 
-	    Scenario: Añadir un plato a mi pedido vacio
-	      Given Estoy en el restaurante "robatayaki"
-	      When Selecciono el plato "Chicken teriyaki"      
-	      Then Deberia ver mi orden con el plato "Chicken teriyaki"
-
-
-4. Crear los pasos de la prueba 'test/bdd/features/steps/restaurant_steps.js'
-
-    ```javascript
-    var pc = require('protractor-cucumber');
-
-	var steps = function() {
-	  var seleniumAddress = 'http://localhost:4444/wd/hub';
-	  var options = { browser : 'chrome', timeout : 100000 };
-	  this.World = pc.world(seleniumAddress, options);
-
-	  this.After(function(callback) {
-	    this.quit(callback);
-	  });
-	};
-
-	module.exports = steps;
-    ```
-4.  Ejecutar la prueba
-
-	- En una consola ejecutar
-    ```
-    sudo webdriver-manager start
-    ```
-	- En la consola, ubicados en el directorio '/test/bdd':
-
-		```
-    cucumber.js
-    ```
-
-
-# Pruebas exploratorias
+## Pruebas exploratorias
 
 Ver presentacion de clase. Usaremos Jira Capture.
-
-https://aitm-silk.atlassian.net
+[Ver enlace](https://aitm-silk.atlassian.net)
