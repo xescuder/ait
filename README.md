@@ -457,14 +457,15 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 
 4. Cambiar en el código de la prueba la línea:
 
-    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);```
-    a
+  ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);```
 
-    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);```
+   a
 
-    Fijarse como en la consola automáticamente se muestra que la prueba falla.
+  ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);```
 
-    ![Reejecución del test con fallo!](./images/karma.png?raw=true)
+  Fijarse como en la consola automáticamente se muestra que la prueba falla.
+
+  ![Reejecución del test con fallo!](./images/karma.png?raw=true)
 
 
 ##  Pruebas de API o servicios
