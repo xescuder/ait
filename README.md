@@ -221,7 +221,7 @@ Fichero 'test/unit/calculator_discount.js':
 
 Fichero: 'calculator_discount_spec.js'
 
-    ```javascript
+   ```javascript
 	 var calc = require('../calculator_discount.js')
 
 	 describe('Calculo descuento compra', function() {
@@ -249,10 +249,6 @@ Fichero: 'calculator_discount_spec.js'
 	  });
 	 });
    ```
-
-
-
-
 
 ## Pruebas de componente
 
@@ -570,51 +566,52 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
   ![Activacion panel Firepath del ejemplo](./images/foodme-firepath.png?raw=true)
 3. La prueba sería (test/acceptance/spec.js):
 
-    ```javascript
-		describe('Cuando añado platos a mi pedido', function() {
-			var priceSelected;
+  ```javascript
+	describe('Cuando añado platos a mi pedido', function() {
+		var priceSelected;
 
-		    beforeEach(function() {
-		      browser.driver.manage().deleteAllCookies();	
-			  browser.get('http://localhost:3000/index.html#/customer');
-		      element(by.model('customerName')).sendKeys('Xavier');
-		      element(by.model('customerAddress')).sendKeys('Mi direccion');
-		      element(by.css('.btn-primary')).click();
-		      element(by.css('a[href*="#/menu/robatayaki"]')).click();    		      
-		    });
+	    beforeEach(function() {
+	      browser.driver.manage().deleteAllCookies();	
+		  browser.get('http://localhost:3000/index.html#/customer');
+	      element(by.model('customerName')).sendKeys('Xavier');
+	      element(by.model('customerAddress')).sendKeys('Mi direccion');
+	      element(by.css('.btn-primary')).click();
+	      element(by.css('a[href*="#/menu/robatayaki"]')).click();    		      
+	    });
 
-		    afterEach(function() {
-		    	browser.manage().logs().get('browser').then(function(browserLog) {
-		      		expect(browserLog.length).toEqual(0);      		
-		      		console.log('log: ' + require('util').inspect(browserLog));
-		    	});
-		  	});
+	    afterEach(function() {
+	    	browser.manage().logs().get('browser').then(function(browserLog) {
+	      		expect(browserLog.length).toEqual(0);      		
+	      		console.log('log: ' + require('util').inspect(browserLog));
+	    	});
+	  	});
 
-		    describe('Cuando añado un plato a mi pedido vacio', function() {
-				beforeEach(function() {
-					var h3Tag = element(by.tagName('h3'));
+	    describe('Cuando añado un plato a mi pedido vacio', function() {
+			beforeEach(function() {
+				var h3Tag = element(by.tagName('h3'));
 
-			      	expect(h3Tag.getText()).toBe('Robatayaki Hachi');
-			      	
-			      	var linkAddCart = element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[1]/a'));
-			      	element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
-			      		console.log('Precio del plato:' + price);
-			      		priceSelected = price;
-			      		linkAddCart.click();
-			      	});	      	
-				});
+		      	expect(h3Tag.getText()).toBe('Robatayaki Hachi');
+		      	
+		      	var linkAddCart = element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[1]/a'));
+		      	element(by.xpath('html/body/div/ng-view/div[2]/div[1]/ul/li[2]/a/span[2]')).getText().then(function(price) {
+		      		console.log('Precio del plato:' + price);
+		      		priceSelected = price;
+		      		linkAddCart.click();
+		      	});	      	
+			});
 
-				xit('deberia el pedido tener el plato', function() {			
-				});	      
+			xit('deberia el pedido tener el plato', function() {			
+			});	      
 
-				it('deberia el pedido tener un precio total igual al plato escogido', function() {
-					var total = element(by.binding('cart.total()'));
-					var expectedTotal = 'Total: $' + priceSelected;
-				  	expect(total.getText()).toEqual(expectedTotal);	
-				});
-		    });-        
-		});
-    ```
+			it('deberia el pedido tener un precio total igual al plato escogido', function() {
+				var total = element(by.binding('cart.total()'));
+				var expectedTotal = 'Total: $' + priceSelected;
+			  	expect(total.getText()).toEqual(expectedTotal);	
+			});
+	    });-        
+	});
+  ```
+  
 4. Ejecutar la prueba: ```protractor conf.js```
 
 
