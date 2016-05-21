@@ -773,8 +773,10 @@ Ver presentacion de clase. Usaremos Jira Capture.
 2. Ejecutar en 'test/component' el comando ``karma start```
 3. Incorporar el informe de cobertura de pruebas en una carpeta y referenciarlo en el fichero 'sonar-project.properties':
 
+  ```
   # Report LCOV generado con Karma
   sonar.javascript.lcov.reportPath=build/reports/coverage/report-lcovonly.txt
+  ```
 
 
 4. Volver a ejecutar el scanner: ```sonar-scanner```
