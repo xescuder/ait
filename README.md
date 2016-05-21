@@ -300,17 +300,17 @@ Aparecerán varias preguntas. Dar las siguientes respuestas:
 
 Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros de prueba y de aplicación:
     
-    ```javascript
-	   files: [
-	      'app/lib/angular/angular.js',
-	      'app/lib/angular/angular-*.js',
-	      'test/lib/angular/angular-mocks.js',
-	
-	
-	      'app/js/**/*.js',
-	      'test/component/**/*.js'
-	    ],
-    ```
+```javascript
+ files: [
+    'app/lib/angular/angular.js',
+    'app/lib/angular/angular-*.js',
+    'test/lib/angular/angular-mocks.js',
+
+
+    'app/js/**/*.js',
+    'test/component/**/*.js'
+  ]
+```
 
 
 ### Definición y ejecución de la prueba
@@ -457,9 +457,10 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 
 4. Cambiar en el código de la prueba la línea:
 
-    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
+    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);```
     a
-    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);
+
+    ```expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);```
 
     Fijarse como en la consola automáticamente se muestra que la prueba falla.
 
