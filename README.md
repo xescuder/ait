@@ -479,7 +479,7 @@ Consultar [http://frisbyjs.com](http://frisbyjs.com).
 
   Si pasamos por encima del nombre 'robatayaki' también podemos ver la llamada realizada 'http://localhost:3000/api/restaurant/robatayaki'
 
-4. Crear la prueaba (spec/restaurants_spec.js):
+4. Crear la prueaba (test/acceptance-rest/spec/restaurants_spec.js):
 
     ```javascript
     var frisby = require('/usr/local/lib/node_modules/frisby');
@@ -612,7 +612,7 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
 
 1. Estructurar cada página en un fichero u objeto
 
-      Fichero 'pages/home_page.js':
+      Fichero 'test/acceptance-pageobjects/home_page.js':
 
       ```javascript
       'use strict';
@@ -643,7 +643,7 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
       ```
 
 
-      Fichero 'pages/restaurant_page.js':
+      Fichero 'test/acceptance-pageobjects/pages/restaurant_page.js':
 
       ```javascript
       'use strict';
@@ -717,3 +717,69 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
 
 Ver presentacion de clase. Usaremos Jira Capture.
 [Ver enlace](https://aitm-silk.atlassian.net)
+
+
+## Análisis del código y deuda técnica
+
+
+1. Arrancar sonar
+  ```
+  cd /etc/sonarqube-5.5/bin/linux-x86-64
+  ./sonar.sh console
+  ```
+2. Ejecutar ```sonar-scanner``` desde la raíz del proyecto
+3. Abrir la url 'http://127.0.0.1:9000/sonar'
+
+    ![Proyecto en SonarQube](./images/sonar-1.png?raw=true)
+
+4. Pulsar en el proyecto
+
+    ![Detalle en SonarQube](./images/sonar-2.png?raw=true)
+
+5. Una vez revisados los valores obtenidos, realizar una modificación para introducir un nuevo bug:
+
+    Abrir el fichero 'app/services/cart.js' y modificar la línea ```if (self.restaurant.id === restaurant.id) {``` por ```if (self.restaurant.id == restaurant.id)``` y grabar.
+
+6. Ejecutar de nuevo ```sonar-scanner``` desde la raíz del proyecto
+7. Revisar el impacto del nuevo cambio
+
+  ![Detalle en SonarQube](./images/sonar-4.png?raw=true)
+
+
+### Incorporar informe de cobertura de pruebas
+
+
+1. Abrir fichero '/test/component/karma.conf.js'
+
+
+    ```javascript
+    reporters: ['progress', 'coverage'],
+    preprocessors: {
+      'app/js/**/*.js': ['coverage']
+    },
+
+    ...
+
+    coverageReporter: {
+      // specify a common output directory
+      dir: 'build/reports/coverage',
+      reporters: [
+        { type: 'html', subdir: 'report-html' },        
+        { type: 'lcovonly', subdir: '.', file: 'report-lcovonly.txt' },        
+      ]
+    }
+    ```
+
+2. Ejecutar en 'test/component' el comando ``karma start```
+3. Incorporar el informe de cobertura de pruebas en una carpeta y referenciarlo en el fichero 'sonar-project.properties':
+
+  # Report LCOV generado con Karma
+  sonar.javascript.lcov.reportPath=build/reports/coverage/report-lcovonly.txt
+
+
+4. Volver a ejecutar el scanner: ```sonar-scanner```
+5. Visualizar la nueva métrica de cobertura
+
+  ![Métrica de cobertura de pruebas](./images/sonar-4.png?raw=true)
+
+

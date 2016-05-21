@@ -89,7 +89,7 @@
         scope.filter.rating = 1;
       });
 
-      expect(idsFrom(scope.restaurants)).toEqual(['tofuparadises']);
+      expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
 
       scope.$apply(function() {
         scope.filter.rating = null;
