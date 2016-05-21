@@ -349,102 +349,102 @@ Abrir el fichero creado 'karma.config.js' y configurar las rutas a los ficheros 
 
 2. Definir la prueba (/component/controllers/RestaurantControllerSpec.js):
 
-        ```javascript
-         'use strict';
+      ```javascript
+        'use strict';
 
-          var RESPONSE = [
-            {
-              "price": 3,
-              "id": "esthers",
-              "cuisine": "german",
-              "rating": 3,
-              "name": "Esther's German Saloon"
-            },
-            {
-              "price": 4,
-              "id": "robatayaki",
-              "cuisine": "japanese",
-              "rating": 5,
-              "name": "Robatayaki Hachi"
-            },
-            {
-              "price": 2,
-              "id": "tofuparadise",
-              "cuisine": "vegetarian",
-              "rating": 1,
-              "name": "BBQ Tofu Paradise"
-            },
-            {
-              "price": 5,
-              "id": "bateaurouge",
-              "cuisine": "french",
-              "rating": 4,
-              "name": "Le Bateau Rouge"
-            },
-            {
-              "price": 3,
-              "id": "khartoum",
-              "cuisine": "african",
-              "rating": 2,
-              "name": "Khartoum Khartoum"
-            }
-          ];
+        var RESPONSE = [
+          {
+            "price": 3,
+            "id": "esthers",
+            "cuisine": "german",
+            "rating": 3,
+            "name": "Esther's German Saloon"
+          },
+          {
+            "price": 4,
+            "id": "robatayaki",
+            "cuisine": "japanese",
+            "rating": 5,
+            "name": "Robatayaki Hachi"
+          },
+          {
+            "price": 2,
+            "id": "tofuparadise",
+            "cuisine": "vegetarian",
+            "rating": 1,
+            "name": "BBQ Tofu Paradise"
+          },
+          {
+            "price": 5,
+            "id": "bateaurouge",
+            "cuisine": "french",
+            "rating": 4,
+            "name": "Le Bateau Rouge"
+          },
+          {
+            "price": 3,
+            "id": "khartoum",
+            "cuisine": "african",
+            "rating": 2,
+            "name": "Khartoum Khartoum"
+          }
+        ];
 
-          describe('RestaurantsController', function() {
-            var scope;
+        describe('RestaurantsController', function() {
+          var scope;
 
-            var idsFrom = function(restaurants) {
-              return restaurants.map(function(restaurant) {
-                return restaurant.id;
-              });
-            };
-
-            beforeEach(function() {
-              module('foodMeApp'); // <= inicializar el módulo a probar
+          var idsFrom = function(restaurants) {
+            return restaurants.map(function(restaurant) {
+              return restaurant.id;
             });
+          };
 
-            beforeEach(inject(function($controller, $httpBackend, $rootScope) {
-              scope = $rootScope;
-
-              $httpBackend.whenGET('/api/restaurant').respond(RESPONSE); // <= Aquí introducimos el mock
-              $controller('RestaurantsController', {$scope: scope});
-
-              $httpBackend.flush();
-            }));
-
-
-            it('deberia filtrar por rating', function() {
-              expect(scope.restaurants.length).toBe(5);
-
-              scope.$apply(function() {
-                scope.filter.rating = 1;
-              });
-
-              expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
-
-              scope.$apply(function() {
-                scope.filter.rating = null;
-              });
-
-              expect(scope.restaurants.length).toBe(5);
-            });
-
-
-            expect(idsFrom(scope.restaurants)).toEqual([
-              'tofuparadise', 'khartoum', 'esthers', 'bateaurouge', 'robatayaki'
-            ]);
-
-            // second click on "rating" makes it sort desc
-            scope.$apply(function() {
-              scope.sortBy('rating');
-            });
-
-            expect(idsFrom(scope.restaurants)).toEqual([
-              'robatayaki', 'bateaurouge', 'esthers', 'khartoum', 'tofuparadise'
-            ]);
-            });
+          beforeEach(function() {
+            module('foodMeApp'); // <= inicializar el módulo a probar
           });
-          ```
+
+          beforeEach(inject(function($controller, $httpBackend, $rootScope) {
+            scope = $rootScope;
+
+            $httpBackend.whenGET('/api/restaurant').respond(RESPONSE); // <= Aquí introducimos el mock
+            $controller('RestaurantsController', {$scope: scope});
+
+            $httpBackend.flush();
+          }));
+
+
+          it('deberia filtrar por rating', function() {
+            expect(scope.restaurants.length).toBe(5);
+
+            scope.$apply(function() {
+              scope.filter.rating = 1;
+            });
+
+            expect(idsFrom(scope.restaurants)).toEqual(['tofuparadise']);
+
+            scope.$apply(function() {
+              scope.filter.rating = null;
+            });
+
+            expect(scope.restaurants.length).toBe(5);
+          });
+
+
+          expect(idsFrom(scope.restaurants)).toEqual([
+            'tofuparadise', 'khartoum', 'esthers', 'bateaurouge', 'robatayaki'
+          ]);
+
+          // second click on "rating" makes it sort desc
+          scope.$apply(function() {
+            scope.sortBy('rating');
+          });
+
+          expect(idsFrom(scope.restaurants)).toEqual([
+            'robatayaki', 'bateaurouge', 'esthers', 'khartoum', 'tofuparadise'
+          ]);
+          });
+        });
+      ```
 
       El array 'RESPONSE' es el array dummy que devolveremos siempre que se reciba la llamada para obtener un listado de restaurantes. Este array 'predefinido' permite que las pruebas sean repetibles y deterministas.
 
@@ -533,18 +533,14 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
 
 3. Ejecutar las pruebas:
 
-    En una consola ejecutar:
+    En una consola ejecutar: ```sudo webdriver-manager start```
 
-        ```sudo webdriver-manager start```
-
-    Abrir otra consola y ejecutar:
-
-        ```protractor conf.js```
+    Abrir otra consola y ejecutar: ```protractor conf.js```
 
     NOTA: Previamente hay que arrancar la aplicación.
 
 4. Cambiar el código de la página 'index.html' para verificar que ahora la prueba falla, cambiando el título de la página.
-
+ 
   ```html
   <head>
     <meta charset="utf-8">
@@ -611,7 +607,7 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
 	    });-        
 	});
   ```
-  
+
 4. Ejecutar la prueba: ```protractor conf.js```
 
 
