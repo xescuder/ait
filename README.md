@@ -122,7 +122,7 @@ Revisar la [sintaxis de Jasmine](http://jasmine.github.io) antes de empezar.
 
 Ver enlace [documentación Cucumber.js](https://github.com/cucumber/cucumber-js)
 
-1. Definimos el feature (**sumar.feature**)
+1. Definimos el feature (*features/sumar.feature*)
 
     ```
     Feature: Sumar números
@@ -154,7 +154,7 @@ Ver enlace [documentación Cucumber.js](https://github.com/cucumber/cucumber-js)
     }).call(this);
     ```
 
-3. Dejamos en la carpeta 'models' el fichero 'calculator.js' (igual que habíamos hecho con la prueba con Jasmine)
+3. Dejamos en la carpeta 'models' el fichero 'calculator.js' (el mismo que habíamos usado en la prueba con Jasmine)
 4. Definimos la especificación de pruebas que cumple el feature definido (features/step_definitions/myStepDefinitions.js):
     
     ```javascript
@@ -204,7 +204,7 @@ Fichero 'test/unit/calculator_discount.js':
 
   ```javascript
   exports.getDiscountByVale = function(active) {
-    if (active) return 0.5;
+    if (active) return 0.05;
     else throw new Error('El vale ha caducado');
   }
   exports.getDiscountByPrice = function(price) {
@@ -222,32 +222,32 @@ Fichero 'test/unit/calculator_discount.js':
 Fichero: 'calculator_discount_spec.js'
 
    ```javascript
-	 var calc = require('../calculator_discount.js')
+     var calc = require('../calculator_discount.js')
 
-	 describe('Calculo descuento compra', function() {
-	  
-	  describe('calcular descuento por vale', function() {
-	    it('deberia devolver un descuento del 5% si el vale es activo', function() {
-	      expect(calc.getDiscountByVale(true)).toEqual(0.5);
-	    });
+     describe('Calculo descuento compra', function() {
+      
+      describe('calcular descuento por vale', function() {
+        it('deberia devolver un descuento del 5% si el vale es activo', function() {
+          expect(calc.getDiscountByVale(true)).toEqual(0.05);
+        });
 
-	    it('deberia devolver un mensaje de error si el vale es inactivo', function() {
-	      expect(function() {
-	        calc.getDiscountByVale(false);
-	      }).toThrow(new Error('El vale ha caducado'));
-	    });
-	  });
+        it('deberia devolver un mensaje de error si el vale es inactivo', function() {
+          expect(function() {
+            calc.getDiscountByVale(false);
+          }).toThrow(new Error('El vale ha caducado'));
+        });
+      });
 
-	  describe('calcular descuento por precio de compra', function() {
-	    it('deberia devolver un descuento del 5% si el precio supera los 50 euros', function() {
-	      expect(calc.getDiscountByPrice(51)).toBe(0.05);
-	    });
+      describe('calcular descuento por precio de compra', function() {
+        it('deberia devolver un descuento del 5% si el precio supera los 50 euros', function() {
+          expect(calc.getDiscountByPrice(51)).toBe(0.05);
+        });
 
-	    it('deberia devolver un descuento del 10% si el precio supera los 100 euros', function() {
-	      expect(calc.getDiscountByPrice(200)).toBe(0.1);
-	    });
-	  });
-	 });
+        it('deberia devolver un descuento del 10% si el precio supera los 100 euros', function() {
+          expect(calc.getDiscountByPrice(200)).toBe(0.1);
+        });
+      });
+    });
    ```
 
 ## Pruebas de componente
@@ -479,7 +479,7 @@ Consultar [http://frisbyjs.com](http://frisbyjs.com).
 
   Si pasamos por encima del nombre 'robatayaki' también podemos ver la llamada realizada 'http://localhost:3000/api/restaurant/robatayaki'
 
-4. Crear la prueaba (test/acceptance-rest/spec/restaurants_spec.js):
+4. Crear la prueba (*test/acceptance-rest/spec/restaurants_spec.js*):
 
     ```javascript
     var frisby = require('/usr/local/lib/node_modules/frisby');

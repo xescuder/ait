@@ -1,5 +1,5 @@
 exports.getDiscountByVale = function(active) {
-	if (active) return 0.5;
+	if (active) return 0.05;
 	else throw new Error('El vale ha caducado');
 }
 

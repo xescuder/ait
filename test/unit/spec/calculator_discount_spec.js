@@ -4,7 +4,7 @@
   
   describe('calcular descuento por vale', function() {
     it('deberia devolver un descuento del 5% si el vale es activo', function() {
-      expect(calc.getDiscountByVale(true)).toEqual(0.5);
+      expect(calc.getDiscountByVale(true)).toEqual(0.05);
     });
 
     it('deberia devolver un mensaje de error si el vale es inactivo', function() {
