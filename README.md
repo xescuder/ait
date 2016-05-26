@@ -716,7 +716,6 @@ Objetivo: Realizar pruebas de aceptación en base a la presentación o la intera
 ## Pruebas exploratorias
 
 Ver presentacion de clase. Usaremos Jira Capture.
-[Ver enlace](https://aitm-silk.atlassian.net)
 
 
 ## Análisis del código y deuda técnica
